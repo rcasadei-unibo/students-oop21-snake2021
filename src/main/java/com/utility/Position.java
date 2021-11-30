@@ -7,12 +7,13 @@ package main.java.com.utility;
 public interface Position {
 
     /**
-     * @return the value of the x coordinate.
+     * @return the value of the x-coordinate.
      */
     int getX();
 
     /**
-     * @return the value of the y coordinate.
+     * 
+     * @return the value of the y-coordinate.
      */
     int getY();
 }

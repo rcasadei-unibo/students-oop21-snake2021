@@ -2,7 +2,13 @@ package main.java.com.utility;
 
 public class Pos implements Position {
 
+    /**
+     * Value of the x-coordinate.
+     */
     private final int x;
+    /**
+     * Value of the y-coordinate.
+     */
     private final int y;
 
     public Pos(final int x, final int y) {
@@ -11,11 +17,13 @@ public class Pos implements Position {
         this.y = y;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getX() {
         return x;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getY() {
         return y;
@@ -63,5 +71,5 @@ public class Pos implements Position {
     public String toString() {
         return "Pos [x=" + x + ", y=" + y + "]";
     }
-    
+
 }

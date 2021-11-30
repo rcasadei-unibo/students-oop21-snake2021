@@ -44,14 +44,14 @@ public enum Direction {
      * @return whether the new direction is the opposite of the current direction.
      */
     public static boolean isOppositeDirection(final Direction currentDir, final Direction newDir) {
-        return currentDir.equals(UP) && newDir.equals(DOWN) ||
-                currentDir.equals(DOWN) && newDir.equals(UP) ||
-                currentDir.equals(LEFT) && newDir.equals(RIGHT) ||
-                currentDir.equals(RIGHT) && newDir.equals(LEFT);
+        return currentDir.equals(UP) && newDir.equals(DOWN)
+                || currentDir.equals(DOWN) && newDir.equals(UP)
+                || currentDir.equals(LEFT) && newDir.equals(RIGHT)
+                || currentDir.equals(RIGHT) && newDir.equals(LEFT);
     }
 
     public String toString() {
-        switch(this) {
+        switch (this) {
         case UP:
             return "up";
         case DOWN:
@@ -61,7 +61,7 @@ public enum Direction {
         case RIGHT:
             return "right";
         default:
-            return"";
+            return "";
         }
     }
 }
