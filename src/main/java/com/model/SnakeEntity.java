@@ -1,6 +1,7 @@
 package main.java.com.model;
 
-import java.util.Set;
+import java.util.List;
+
 
 import main.java.com.utility.Direction;
 import main.java.com.utility.Position;
@@ -24,7 +25,7 @@ public interface SnakeEntity extends GameEntity {
     void setDirection(Direction dir);
 
     /**
-     * Computes the next position in which the snake would move. 
+     * Computes the next position in which the snake would move (considering only the snake's head).
      * @return the next position.
      */
     Position nextPosition();
@@ -33,7 +34,7 @@ public interface SnakeEntity extends GameEntity {
      * 
      * @return a set of Position of all of the snake's body.
      */
-    Set<Position> getBodyPosition();
+    List<Position> getBodyPosition();
 
     /**
      * Increases the length of the snake by one unit.
