@@ -22,7 +22,7 @@ public class GameMapImpl implements GameMap {
     private final Position snakeStartPosition;
 
     private SnakeEntity snake;
-    private GameEntity apple;
+    private EatableEntity apple;
 
     /**
      * Public constructor for the game map.
@@ -70,7 +70,6 @@ public class GameMapImpl implements GameMap {
     @Override
     public void resetMap() {
         // TODO Auto-generated method stub
-
     }
 
     /** {@inheritDoc} */
@@ -84,7 +83,7 @@ public class GameMapImpl implements GameMap {
     @Override
     public void updateSnake() {
         // TODO Auto-generated method stub
-
+        this.snake.move();
     }
 
     private Position randomApplePos() {

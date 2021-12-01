@@ -111,6 +111,15 @@ public final class Snake implements SnakeEntity {
     }
 
     /** {@inheritDoc} */
+    public void setPosition(final Position p) {
+        if (p.getX() < 0 || p.getX() > this.mapSizeX
+                || p.getY() < 0 || p.getY() > this.mapSizeY) {
+            throw new IllegalArgumentException();
+        }
+        this.headPosition = p;
+    }
+
+    /** {@inheritDoc} */
     @Override
     public Direction getDirection() {
         return this.direction;
@@ -191,8 +200,12 @@ public final class Snake implements SnakeEntity {
          *  TODO find a way to make sure that when snake eats an apple this move() method skips to remove the element on the tail,
          *  using also the increaseLength().
          */
+        this.headPosition = this.nextPosition();
+        if (this.length == this.body.size()) {   // The length field should be incresed when snake eats an apple,
+            this.body.remove(this.body.size());  // so we could use to know when not to remove the element on the tail.
+        }
         this.body.add(0, this.nextPosition());
-        this.body.remove(this.body.size());
+
     }
 
 }
