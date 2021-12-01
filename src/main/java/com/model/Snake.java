@@ -1,9 +1,7 @@
 package main.java.com.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import main.java.com.utility.Direction;
 import main.java.com.utility.Pos;
@@ -179,6 +177,7 @@ public final class Snake implements SnakeEntity {
 
         // Update the new positions.
         // TODO JUnit test.
+        /*
         List<Position> temp = new ArrayList<>(this.body);
         temp.set(0, this.nextPosition());
         for (int i = 1; i < this.body.size(); i++) {
@@ -186,9 +185,10 @@ public final class Snake implements SnakeEntity {
         }
         this.body = temp;
         this.headPosition = this.nextPosition();
+         */
 
         /** Probably it has to be done like this. Add the new element on the head and remove the one on the tail.
-         *  TODO find a way to make sure that when snake eats an apple this move() method skips to remove th element on the tail,
+         *  TODO find a way to make sure that when snake eats an apple this move() method skips to remove the element on the tail,
          *  using also the increaseLength().
          */
         this.body.add(0, this.nextPosition());
