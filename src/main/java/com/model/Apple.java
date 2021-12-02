@@ -4,12 +4,17 @@ import main.java.com.utility.Position;
 
 public class Apple implements EatableEntity {
 
+    private static final int INITIAL_POINTS = 50;
+    private static final int POINTS_CHANGE = 50;
+
     private Position position;
     private int eatenCounter;
+    private int pointsValue;
 
     public Apple(final Position pos) {
         position = pos;
         eatenCounter = 0;
+        pointsValue = INITIAL_POINTS;
     }
 
     /** {@inheritDoc}*/
@@ -30,10 +35,24 @@ public class Apple implements EatableEntity {
         return this.eatenCounter;
     }
 
+    /** {@inheritDoc} */
+    public void resetTimesEaten() {
+        this.eatenCounter = 0;
+    }
+
     /** {@inheritDoc}*/
     @Override
     public void incrementEatenCounter() {
         this.eatenCounter++;
+        if (this.eatenCounter % 10 == 0) {
+            this.pointsValue += POINTS_CHANGE; // The points value for each apple eaten increments by 50 every ten apples eaten.
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public int getPointsValue() {
+        return this.pointsValue;
     }
 
 }

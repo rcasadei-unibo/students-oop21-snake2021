@@ -43,6 +43,12 @@ public interface SnakeEntity extends GameEntity {
     List<Position> getBodyPosition();
 
     /**
+     * Sets the position of the snake's body.
+     * @param body
+     */
+    void setBodyPosition(List<Position> body);
+
+    /**
      * Increases the length of the snake by one unit.
      */
     void increaseLength();

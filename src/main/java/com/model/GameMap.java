@@ -20,7 +20,7 @@ public interface GameMap {
     * 
     * @return a set of all the cells that are not currently occupied by one of the game's entities.
     */
-   Set<Position> getFreeCells();
+   Set<Position> getFreeCells(SnakeEntity snake);
 
    /**
     * 
@@ -29,29 +29,15 @@ public interface GameMap {
    Set<Position> getWalls();
 
    /**
-    * Reset all the map and the game entities to their initial status.
+    * 
+    * @return the size of the map on the x-coordinate.
     */
-   void resetMap();
-
-   /**
-    * Update the status of the apple in the game map.
-    */
-   void updateApple();
-
-   /**
-    * Update the status of the snake in the game map.
-    */
-   void updateSnake();
+   int getXMapSize();
 
    /**
     * 
-    * @return snake.
+    * @return the size of the map on the y-coordinate.
     */
-   SnakeEntity getSnake();
+   int getYMapSize();
 
-   /**
-    * 
-    * @return the apple.
-    */
-   EatableEntity getApple();
 }

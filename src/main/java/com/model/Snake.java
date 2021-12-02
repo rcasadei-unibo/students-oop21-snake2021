@@ -21,9 +21,15 @@ public final class Snake implements SnakeEntity {
     private final int mapSizeX;
     /** The size of the map on the y-coordinate. */
     private final int mapSizeY;
-    /** A boolean that indicates whether the snake is dead or not. */
-    //private boolean dead;
 
+    /**
+     * 
+     * @param dir the direction.
+     * @param headPos the head's position.
+     * @param bodyPos the body's position.
+     * @param x the map's size on the x-coordinate.
+     * @param y the map's size on the y-coordinate.
+     */
     private Snake(final Direction dir, final Position headPos, final List<Position> bodyPos,
                     final int x, final int y) {
         direction = dir;
@@ -32,7 +38,6 @@ public final class Snake implements SnakeEntity {
         length = body.size();
         mapSizeX = x;
         mapSizeY = y;
-        //dead = false;
     }
 
     /**
@@ -162,6 +167,12 @@ public final class Snake implements SnakeEntity {
     @Override
     public List<Position> getBodyPosition() {
         return this.body;
+    }
+
+    /** {@inheritDoc} */
+    public void setBodyPosition(final List<Position> b) {
+        this.body = b;
+        this.headPosition = b.get(0);
     }
 
     /** {@inheritDoc} */
