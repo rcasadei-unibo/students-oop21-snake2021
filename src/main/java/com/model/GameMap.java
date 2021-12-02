@@ -23,6 +23,12 @@ public interface GameMap {
    Set<Position> getFreeCells();
 
    /**
+    * 
+    * @return a set containing the positions of the walls in the map.
+    */
+   Set<Position> getWalls();
+
+   /**
     * Reset all the map and the game entities to their initial status.
     */
    void resetMap();
@@ -36,4 +42,16 @@ public interface GameMap {
     * Update the status of the snake in the game map.
     */
    void updateSnake();
+
+   /**
+    * 
+    * @return snake.
+    */
+   SnakeEntity getSnake();
+
+   /**
+    * 
+    * @return the apple.
+    */
+   EatableEntity getApple();
 }

@@ -1,6 +1,7 @@
 package main.java.com.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -35,7 +36,7 @@ public class GameMapImpl implements GameMap {
         xMapSize = x;
         yMapSize = y;
         snakeStartPosition = new Pos(xMapSize / 2, yMapSize / 2);
-        List<Position> initialBody = new ArrayList<>();
+        final List<Position> initialBody = new ArrayList<>();
         initialBody.add(snakeStartPosition);
         for (int i = 1; i < INITIAL_BODY_LENGTH; i++) {
             initialBody.add(new Pos(xMapSize / 2, yMapSize / 2 + i));
@@ -58,12 +59,26 @@ public class GameMapImpl implements GameMap {
     /** {@inheritDoc} */
     @Override
     public Set<Position> getFreeCells() {
-        Set<Position> temp = Set.copyOf(this.map);
+        final Set<Position> temp = Set.copyOf(this.map);
         if (temp.removeAll(Set.copyOf(this.snake.getBodyPosition()))) {
             return temp;
         } else {
             throw new IllegalStateException();
         }
+    }
+
+    /** {@inheritDoc} */
+    public Set<Position> getWalls() {
+        final Set<Position> walls = new HashSet<>();
+        for (int i = 0; i < xMapSize; i++) {
+            walls.add(new Pos(i, yMapSize - 1));
+            walls.add(new Pos(i, 0));
+        }
+        for (int j = 0; j < yMapSize; j++) {
+            walls.add(new Pos(xMapSize - 1, j));
+            walls.add(new Pos(0, j));
+        }
+        return walls;
     }
 
     /** {@inheritDoc} */
@@ -86,9 +101,30 @@ public class GameMapImpl implements GameMap {
         this.snake.move();
     }
 
+    /** {@inheritDoc} */
+    public SnakeEntity getSnake() {
+        return this.snake;
+    }
+
+    /** {@inheritDoc} */
+    public EatableEntity getApple() {
+        return this.apple;
+    }
+
+    /**
+     * 
+     * @return a new random position in the game map that doesn't overlap with snake.
+     */
     private Position randomApplePos() {
         final Random rand = new Random();
-        return new Pos(rand.nextInt(xMapSize), rand.nextInt(yMapSize));
+        int x = rand.nextInt(xMapSize);
+        int y = rand.nextInt(yMapSize);
+        // Randomize position until you get one that does not overlap with snake.
+        while (this.snake.getBodyPosition().contains(new Pos(x, y))) {
+            x = rand.nextInt(xMapSize);
+            y = rand.nextInt(yMapSize);
+        }
+        return new Pos(x, y);
     }
 
 }

@@ -22,7 +22,7 @@ public final class Snake implements SnakeEntity {
     /** The size of the map on the y-coordinate. */
     private final int mapSizeY;
     /** A boolean that indicates whether the snake is dead or not. */
-    private boolean dead;
+    //private boolean dead;
 
     private Snake(final Direction dir, final Position headPos, final List<Position> bodyPos,
                     final int x, final int y) {
@@ -32,7 +32,7 @@ public final class Snake implements SnakeEntity {
         length = body.size();
         mapSizeX = x;
         mapSizeY = y;
-        dead = false;
+        //dead = false;
     }
 
     /**
@@ -180,29 +180,17 @@ public final class Snake implements SnakeEntity {
         if (this.body.contains(this.nextPosition())
                 || this.nextPosition().getX() <= 0 || this.nextPosition().getX() >= this.mapSizeX
                 || this.nextPosition().getY() <= 0 || this.nextPosition().getY() >= this.mapSizeY) {
-            this.dead = true;
+            //this.dead = true;
             return;
         }
-
-        // Update the new positions.
-        // TODO JUnit test.
-        /*
-        List<Position> temp = new ArrayList<>(this.body);
-        temp.set(0, this.nextPosition());
-        for (int i = 1; i < this.body.size(); i++) {
-            temp.set(i, this.body.get(i - 1));
-        }
-        this.body = temp;
-        this.headPosition = this.nextPosition();
-         */
 
         /** Probably it has to be done like this. Add the new element on the head and remove the one on the tail.
          *  TODO find a way to make sure that when snake eats an apple this move() method skips to remove the element on the tail,
          *  using also the increaseLength().
          */
         this.headPosition = this.nextPosition();
-        if (this.length == this.body.size()) {   // The length field should be incresed when snake eats an apple,
-            this.body.remove(this.body.size());  // so we could use to know when not to remove the element on the tail.
+        if (this.length == this.body.size()) {   // The length field should be increased when snake eats an apple,
+            this.body.remove(this.body.size());  // so we could use it to know when not to remove the element on the tail.
         }
         this.body.add(0, this.nextPosition());
 
