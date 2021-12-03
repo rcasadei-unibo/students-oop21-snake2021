@@ -9,7 +9,6 @@ import main.java.com.utility.Position;
 
 public class GameMapImpl implements GameMap {
 
-    private static final int INITIAL_BODY_LENGTH = 5;
     /** A set representing all possible positions on the map. */
     private final Set<Position> map;
     /** The map's size on the x-coordinate. */

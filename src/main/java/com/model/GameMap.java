@@ -2,6 +2,7 @@ package main.java.com.model;
 
 import java.util.Set;
 
+
 import main.java.com.utility.Position;
 
 /**
@@ -19,6 +20,7 @@ public interface GameMap {
    /**
     * 
     * @return a set of all the cells that are not currently occupied by one of the game's entities.
+    * @param snake
     */
    Set<Position> getFreeCells(SnakeEntity snake);
 
