@@ -1,5 +1,6 @@
 package main.java.com.controller;
 
+import main.java.com.model.GameModel;
 import main.java.com.model.Model;
 
 public class Controller {
@@ -8,7 +9,7 @@ public class Controller {
     private boolean isGameOver;
     private boolean isPaused;
 
-    public Controller(final Model m) {
-        this.model = m;
+    public Controller() {
+        this.model = new GameModel();
     }
 }

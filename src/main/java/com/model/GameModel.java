@@ -30,14 +30,14 @@ public class GameModel implements Model {
                          .body(this.getInitialSnake())
                          .mapSize(X_MAP_SIZE, Y_MAP_SIZE)
                          .build();
-        apple = new Apple(this.randomApplePos());
         final Set<Position> s = new HashSet<>();
-        for (int i = 0; i < X_MAP_SIZE; i++) {
-            for (int j = 0; j < Y_MAP_SIZE; j++) {
+        for (int i = 0; i <= X_MAP_SIZE; i++) {
+            for (int j = 0; j <= Y_MAP_SIZE; j++) {
                 s.add(new Pos(i, j));
             }
         }
         gameMap = new GameMapImpl(s, X_MAP_SIZE, Y_MAP_SIZE);
+        apple = new Apple(this.randomApplePos());
         score = 0;
     }
 
@@ -86,6 +86,9 @@ public class GameModel implements Model {
     }
 
     /** {@inheritDoc} */
+    /*
+     * Consider changing this method. If I use snake.getPosition() I have to find a way to check hits with its body.
+     */
     @Override
     public boolean hitWallorBody() {
         return this.snake.getBodyPosition().contains(this.snake.nextPosition())
@@ -109,8 +112,8 @@ public class GameModel implements Model {
         final Random rand = new Random();
         int x = rand.nextInt(this.gameMap.getXMapSize());
         int y = rand.nextInt(this.gameMap.getYMapSize());
-        // Randomize position until you get one that does not overlap with snake.
-        while (this.snake.getBodyPosition().contains(new Pos(x, y))) {
+        // Randomize position until you get one that does not overlap with snake or walls.
+        while (this.snake.getBodyPosition().contains(new Pos(x, y)) || this.gameMap.getWalls().contains(new Pos(x, y))) {
             x = rand.nextInt(this.gameMap.getXMapSize());
             y = rand.nextInt(this.gameMap.getYMapSize());
         }

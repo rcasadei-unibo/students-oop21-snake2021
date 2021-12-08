@@ -37,7 +37,7 @@ public class GameMapImpl implements GameMap {
     /** {@inheritDoc} */
     @Override
     public Set<Position> getFreeCells(final SnakeEntity snake) {
-        final Set<Position> temp = Set.copyOf(this.map);
+        final Set<Position> temp = new HashSet<>(this.map);
         if (temp.removeAll(Set.copyOf(snake.getBodyPosition()))) {
             return temp;
         } else {
@@ -48,12 +48,12 @@ public class GameMapImpl implements GameMap {
     /** {@inheritDoc} */
     public Set<Position> getWalls() {
         final Set<Position> walls = new HashSet<>();
-        for (int i = 0; i < xMapSize; i++) {
-            walls.add(new Pos(i, yMapSize - 1));
+        for (int i = 0; i <= xMapSize; i++) {
+            walls.add(new Pos(i, yMapSize));
             walls.add(new Pos(i, 0));
         }
-        for (int j = 0; j < yMapSize; j++) {
-            walls.add(new Pos(xMapSize - 1, j));
+        for (int j = 0; j <= yMapSize; j++) {
+            walls.add(new Pos(xMapSize, j));
             walls.add(new Pos(0, j));
         }
         return walls;
