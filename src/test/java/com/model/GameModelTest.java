@@ -69,9 +69,29 @@ public class GameModelTest {
     }
 
     @Test
+    @DisplayName("Test resetGame() method")
+    public void testReset() {
+        final Model model = new GameModel();
+        model.moveSnake();
+        model.moveSnake();
+        model.getSnake().setDirection(Direction.RIGHT);
+        model.moveSnake();
+        model.moveSnake();
+        model.getApple().setPosition(model.getSnake().getPosition());
+        model.eatApple();
+        final Position a = model.getApple().getPosition();
+        model.resetGame();
+        assertEquals(START_POS, model.getSnake().getPosition());
+        assertNotEquals(a, model.getApple().getPosition());
+        assertEquals(0, model.getApple().getTimesEaten());
+        assertEquals(0, model.getScore());
+    }
+
+    @Test
     @DisplayName("Test for the hitWallOrBody() method.")
     public void testHit() {
         final Model model = new GameModel();
+        // Test hit against wall.
         assertFalse(model.hitWallorBody());
         model.moveSnake(); // (10,9)
         assertFalse(model.hitWallorBody());
@@ -85,6 +105,18 @@ public class GameModelTest {
         model.moveSnake(); // (10,2)
         assertFalse(model.hitWallorBody());
         model.moveSnake(); // (10,1) the next one would be a hit
+        assertTrue(model.hitWallorBody());
+        // Test hit against body.
+        model.resetGame();
+        model.moveSnake();
+        assertFalse(model.hitWallorBody());
+        model.getSnake().setDirection(Direction.RIGHT);
+        model.moveSnake();
+        assertFalse(model.hitWallorBody());
+        model.getSnake().setDirection(Direction.DOWN);
+        model.moveSnake();
+        assertFalse(model.hitWallorBody());
+        model.getSnake().setDirection(Direction.LEFT);
         assertTrue(model.hitWallorBody());
     }
 }
