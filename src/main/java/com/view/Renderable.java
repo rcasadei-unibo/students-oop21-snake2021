@@ -2,7 +2,7 @@ package main.java.com.view;
 
 import java.awt.Graphics;
 
-public interface Renderer {
+public interface Renderable {
 
     /**
      * Renders the entity on the screen.
