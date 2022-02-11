@@ -18,4 +18,10 @@ public interface GameView {
      * Updates the view.
      */
     void updateView();
+
+    /**
+     * 
+     * @return the instance of the MapView
+     */
+    MapView getMapView();
 }

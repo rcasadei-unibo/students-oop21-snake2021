@@ -2,37 +2,19 @@ package main.java.com.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Composite;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.Image;
-import java.awt.Paint;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.RenderingHints.Key;
-import java.awt.font.FontRenderContext;
-import java.awt.font.GlyphVector;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ImageObserver;
-import java.awt.image.RenderedImage;
-import java.awt.image.renderable.RenderableImage;
-import java.text.AttributedCharacterIterator;
-import java.util.Map;
+import java.awt.GridBagLayout;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class GameViewImpl implements GameView {
 
@@ -41,16 +23,16 @@ public class GameViewImpl implements GameView {
     private static final String PAUSE = "Pause";
     private static final String RESET = "Reset";
     private static final String QUIT = "Quit";
-    private static final Dimension WINDOW_SIZE = new Dimension(5 * 320, 5 * 200);
+    private static final Dimension WINDOW_SIZE = new Dimension(1000, 800);
 
     private GameObserver observer;
-    private JFrame frame = new JFrame(FRAME_NAME);
-    private MapView mapView = new MapView(21, 21);
+    private final JFrame frame = new JFrame(FRAME_NAME);
+    private final MapView mapView;
 
     public GameViewImpl() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WINDOW_SIZE);
-        frame.getContentPane().add(new JPanel(new BorderLayout()));
+        frame.getContentPane().setLayout(new BorderLayout());
         final JPanel pTop = new JPanel(new FlowLayout());
         final JLabel lScore = new JLabel(SCORE);
         pTop.add(lScore);
@@ -72,12 +54,22 @@ public class GameViewImpl implements GameView {
                 observer.quit();
             }
         });
-        //final JPanel pMain = new JPanel();
-        //pMain.setBackground(new Color(0));
+        mapView = new MapView(21, 21);
         mapView.setBackground(new Color(0));
+        mapView.setPreferredSize(WINDOW_SIZE);
         frame.getContentPane().add(pTop, BorderLayout.NORTH);
         frame.getContentPane().add(pBottom, BorderLayout.SOUTH);
-        frame.getContentPane().add(mapView, BorderLayout.CENTER);
+        frame.getContentPane().add(mapView);
+        frame.setLocationRelativeTo(null); // Centers the frame on the screen.
+        frame.setResizable(true);
+        frame.pack();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public MapView getMapView() {
+        return mapView;
     }
 
     /**
@@ -96,10 +88,12 @@ public class GameViewImpl implements GameView {
         this.frame.setVisible(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateView() {
-        // TODO Auto-generated method stub
-
+        frame.repaint();
     }
 
     private boolean confirmDialog(final String question, final String name) {
