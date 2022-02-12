@@ -1,20 +1,23 @@
 package main.java.com.controller;
 
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
+
 import main.java.com.model.GameModel;
 
 import main.java.com.model.Model;
 import main.java.com.utility.Direction;
-import main.java.com.utility.Pos;
 import main.java.com.view.GameObserver;
 import main.java.com.view.GameView;
 import main.java.com.view.GameViewImpl;
 
-public class Controller implements GameObserver {
+public class Controller implements GameObserver, InputController {
 
-    private static final long PERIOD = 500;
+    private static final long PERIOD = 100;
 
     private final Model model;
     private final GameView view;
+    private final Queue<Command> cmdQueue;
     private boolean isGameOver;
     private boolean isPaused;
 
@@ -22,14 +25,18 @@ public class Controller implements GameObserver {
         model = new GameModel();
         view = new GameViewImpl();
         view.setObserver(this);
+        view.getMapView().addKeyListener(new KeyNotifier(this));
+        cmdQueue = new ArrayBlockingQueue<>(100);
     }
 
     public void mainLoop() {
         long lastTime = System.currentTimeMillis();
         model.getSnake().setDirection(Direction.RIGHT);
-        while (true) {
+        while (!isGameOver || !isPaused) {
             final long current = System.currentTimeMillis();
             final int elapsed = (int) (current - lastTime);
+            view.getMapView().requestFocusInWindow();
+            processInput();
 
             view.getMapView().getAppleView().setPosition(model.getApple().getPosition());
             view.getMapView().getSnakeView().setBody(model.getSnake().getBodyPosition());
@@ -58,19 +65,28 @@ public class Controller implements GameObserver {
 
     @Override
     public void resetGame() {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void pauseGame() {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void quit() {
-        // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void notifyCommand(final Command cmd) {
+        this.cmdQueue.add(cmd);
+    }
+
+    private void processInput() {
+        final Command cmd = cmdQueue.poll();
+        if (cmd != null) {
+            cmd.execute(model);
+        }
     }
 }

@@ -1,20 +1,19 @@
 package main.java.com.view;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.SwingUtilities;
 
 public class GameViewImpl implements GameView {
 
@@ -58,13 +57,13 @@ public class GameViewImpl implements GameView {
         mapView.setBackground(new Color(0));
         mapView.setPreferredSize(WINDOW_SIZE);
         mapView.setFocusable(true);
-        mapView.requestFocus();
         frame.getContentPane().add(pTop, BorderLayout.NORTH);
         frame.getContentPane().add(pBottom, BorderLayout.SOUTH);
         frame.getContentPane().add(mapView);
         frame.setLocationRelativeTo(null); // Centers the frame on the screen.
         frame.setResizable(true);
         frame.pack();
+        mapView.requestFocusInWindow();
     }
 
     /**

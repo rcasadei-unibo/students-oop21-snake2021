@@ -1,5 +1,7 @@
 package main.java.com.view;
 
+import javax.swing.JFrame;
+
 public interface GameView {
 
     /**
@@ -24,4 +26,5 @@ public interface GameView {
      * @return the instance of the MapView
      */
     MapView getMapView();
+
 }

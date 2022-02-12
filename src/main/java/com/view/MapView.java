@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
-
 import main.java.com.utility.Pos;
 import main.java.com.utility.Position;
 
@@ -38,15 +37,9 @@ public class MapView extends JPanel {
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
         populateCells();
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
         drawGrid(g);
         drawApple(g);
         drawSnake(g);
-
-        g.setColor(Color.RED);
-        g.fillRect(cells.get(new Pos(0, 0)).getX(), cells.get(new Pos(0, 0)).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
-        g.clearRect(cells.get(new Pos(0, 0)).getX(), cells.get(new Pos(0, 0)).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
 
         /*
         g.setColor(Color.GREEN);
@@ -65,10 +58,14 @@ public class MapView extends JPanel {
         */
     }
 
+    /**
+     * Draws the grid of the map.
+     * @param g
+     */
     private void drawGrid(final Graphics g) {
         final Position start = new Pos((this.getWidth() - xMapSize * CELL_SIZE) / 2,
                                         (this.getHeight() - ymapSize * CELL_SIZE) / 2);
-        g.setColor(new Color(0, 255, 0));
+        g.setColor(Color.GREEN);
         for (int i = 0; i <= xMapSize; i++) {
             g.drawLine(start.getX() + i * CELL_SIZE, start.getY() + 0, start.getX() + i * CELL_SIZE, start.getY() + ymapSize * CELL_SIZE);
             if (i <= xMapSize) {
@@ -77,11 +74,19 @@ public class MapView extends JPanel {
         }
     }
 
+    /**
+     * Draws an apple on the screen.
+     * @param g
+     */
     private void drawApple(final Graphics g) {
         g.setColor(Color.RED);
         g.fillRect(cells.get(apple.getLocation()).getX(), cells.get(apple.getLocation()).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
     }
 
+    /**
+     * Draws snake on the screen.
+     * @param g
+     */
     private void drawSnake(final Graphics g) {
         g.setColor(Color.WHITE);
         snake.getSnakeView().stream().forEach(r -> {
@@ -90,6 +95,9 @@ public class MapView extends JPanel {
         });
     }
 
+    /**
+     * Populates the map containing all the coordinates for the cells.
+     */
     private void populateCells() {
         final Position start = new Pos((this.getWidth() - xMapSize * CELL_SIZE) / 2,
                                         (this.getHeight() - ymapSize * CELL_SIZE) / 2);

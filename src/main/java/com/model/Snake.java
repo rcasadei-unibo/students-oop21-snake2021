@@ -188,8 +188,8 @@ public final class Snake implements SnakeEntity {
         // TODO JUnit test.
         // Check if the next position would hit a wall or another body part.
         if (this.body.contains(this.nextPosition())
-                || this.nextPosition().getX() < 0 || this.nextPosition().getX() > this.mapSizeX
-                || this.nextPosition().getY() < 0 || this.nextPosition().getY() > this.mapSizeY) {
+                || this.nextPosition().getX() < 0 || this.nextPosition().getX() >= this.mapSizeX
+                || this.nextPosition().getY() < 0 || this.nextPosition().getY() >= this.mapSizeY) {
             //this.dead = true;
             return;
         }
