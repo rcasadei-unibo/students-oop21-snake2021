@@ -1,9 +1,9 @@
 package main.java.com.view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,11 +23,13 @@ public class MapView extends JPanel {
     private final int ymapSize;
     private final Map<Position, Position> cells = new HashMap<>();
     private final AppleView apple;
+    private final SnakeView snake;
 
     public MapView(final int x, final int y) {
         xMapSize = x;
         ymapSize = y;
         apple = new AppleView(new Rectangle(CELL_SIZE, CELL_SIZE));
+        snake = new SnakeView(new ArrayList<>());
     }
 
     /**
@@ -35,11 +37,16 @@ public class MapView extends JPanel {
      */
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        setFocusable(true);
-        requestFocus();
         populateCells();
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, this.getWidth(), this.getHeight());
         drawGrid(g);
         drawApple(g);
+        drawSnake(g);
+
+        g.setColor(Color.RED);
+        g.fillRect(cells.get(new Pos(0, 0)).getX(), cells.get(new Pos(0, 0)).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
+        g.clearRect(cells.get(new Pos(0, 0)).getX(), cells.get(new Pos(0, 0)).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
 
         /*
         g.setColor(Color.GREEN);
@@ -59,7 +66,6 @@ public class MapView extends JPanel {
     }
 
     private void drawGrid(final Graphics g) {
-        System.out.println(this.getSize());
         final Position start = new Pos((this.getWidth() - xMapSize * CELL_SIZE) / 2,
                                         (this.getHeight() - ymapSize * CELL_SIZE) / 2);
         g.setColor(new Color(0, 255, 0));
@@ -69,12 +75,19 @@ public class MapView extends JPanel {
                 g.drawLine(start.getX() + 0, start.getY() + i * CELL_SIZE, start.getX() + xMapSize * CELL_SIZE, start.getY() + i * CELL_SIZE);
             }
         }
-        //g.fillRect((this.getWidth() - xMapSize * CELL_SIZE) / 2, (this.getHeight() - ymapSize * CELL_SIZE) / 2, CELL_SIZE, CELL_SIZE);
     }
 
     private void drawApple(final Graphics g) {
         g.setColor(Color.RED);
         g.fillRect(cells.get(apple.getLocation()).getX(), cells.get(apple.getLocation()).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
+    }
+
+    private void drawSnake(final Graphics g) {
+        g.setColor(Color.WHITE);
+        snake.getSnakeView().stream().forEach(r -> {
+            final Position p = new Pos((int) r.getLocation().getX(), (int) r.getLocation().getY());
+            g.fillRect(cells.get(p).getX(), cells.get(p).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
+        });
     }
 
     private void populateCells() {
@@ -89,6 +102,10 @@ public class MapView extends JPanel {
 
     public AppleView getAppleView() {
         return apple;
+    }
+
+    public SnakeView getSnakeView() {
+        return snake;
     }
 
 }

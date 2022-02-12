@@ -57,6 +57,8 @@ public class GameViewImpl implements GameView {
         mapView = new MapView(21, 21);
         mapView.setBackground(new Color(0));
         mapView.setPreferredSize(WINDOW_SIZE);
+        mapView.setFocusable(true);
+        mapView.requestFocus();
         frame.getContentPane().add(pTop, BorderLayout.NORTH);
         frame.getContentPane().add(pBottom, BorderLayout.SOUTH);
         frame.getContentPane().add(mapView);
