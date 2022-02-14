@@ -1,6 +1,8 @@
 package main.java.com.controller;
 
+import java.util.HashSet;
 import java.util.Queue;
+import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import main.java.com.model.GameModel;
@@ -13,7 +15,7 @@ import main.java.com.view.GameViewImpl;
 
 public class Controller implements GameObserver, InputController {
 
-    private static final long PERIOD = 100;
+    private static final long PERIOD = 80;
 
     private final Model model;
     private final GameView view;
@@ -31,18 +33,24 @@ public class Controller implements GameObserver, InputController {
 
     public void mainLoop() {
         long lastTime = System.currentTimeMillis();
-        model.getSnake().setDirection(Direction.RIGHT);
-        while (!isGameOver || !isPaused) {
+        while (true) {
             final long current = System.currentTimeMillis();
             final int elapsed = (int) (current - lastTime);
-            view.getMapView().requestFocusInWindow();
-            processInput();
+            if (!isPaused) {
+                processInput();
 
-            view.getMapView().getAppleView().setPosition(model.getApple().getPosition());
-            view.getMapView().getSnakeView().setBody(model.getSnake().getBodyPosition());
-            model.moveSnake();
+                view.getMapView().getAppleView().setPosition(model.getApple().getPosition());
+                view.getMapView().getSnakeView().setBody(model.getSnake().getBodyPosition());
+                model.moveSnake();
 
-            view.updateView();
+                // Check "collision". Probably the check needs to be done graphically.
+                if (model.getSnake().getPosition().equals(model.getApple().getPosition())) {
+                    model.eatApple();
+                }
+
+                view.updateView();
+            }
+
             waitForNextFrame(current);
             lastTime = current;
         }
@@ -65,12 +73,13 @@ public class Controller implements GameObserver, InputController {
 
     @Override
     public void resetGame() {
-
+        model.resetGame(); 
     }
 
     @Override
     public void pauseGame() {
-
+        isPaused = !isPaused;
+        view.getMapView().requestFocusInWindow();
     }
 
     @Override
@@ -80,7 +89,7 @@ public class Controller implements GameObserver, InputController {
 
     @Override
     public void notifyCommand(final Command cmd) {
-        this.cmdQueue.add(cmd);
+        cmdQueue.add(cmd);
     }
 
     private void processInput() {

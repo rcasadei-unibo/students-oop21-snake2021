@@ -76,9 +76,6 @@ public class GameModel implements Model {
     /** {@inheritDoc} */
     @Override
     public void eatApple() {
-        if (this.snake.getPosition() != this.apple.getPosition()) {
-            throw new IllegalStateException();
-        }
         this.incScore(this.apple.getPointsValue());
         this.snake.increaseLength();
         this.apple.incrementEatenCounter();
