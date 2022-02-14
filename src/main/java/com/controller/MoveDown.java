@@ -10,4 +10,8 @@ public class MoveDown implements Command {
         gameModel.getSnake().setDirection(Direction.DOWN);
     }
 
+    public Direction getDir() {
+        return Direction.DOWN;
+    }
+
 }

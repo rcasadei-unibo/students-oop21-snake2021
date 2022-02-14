@@ -92,7 +92,9 @@ public class Controller implements GameObserver, InputController {
 
     @Override
     public void notifyCommand(final Command cmd) {
-        cmdQueue.add(cmd);
+        if (!cmd.getDir().equals(model.getSnake().getDirection())) {
+            cmdQueue.add(cmd);
+        }
     }
 
     private void processInput() {

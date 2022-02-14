@@ -10,4 +10,9 @@ public class MoveRight implements Command {
         gameModel.getSnake().setDirection(Direction.RIGHT);
     }
 
+    @Override
+    public Direction getDir() {
+        return Direction.RIGHT;
+    }
+
 }

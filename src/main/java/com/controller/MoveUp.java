@@ -10,4 +10,9 @@ public class MoveUp implements Command {
         gameModel.getSnake().setDirection(Direction.UP);
     }
 
+    @Override
+    public Direction getDir() {
+        return Direction.UP;
+    }
+
 }
