@@ -6,6 +6,7 @@ public class Apple implements EatableEntity {
 
     private static final int INITIAL_POINTS = 50;
     private static final int POINTS_CHANGE = 50;
+    private static final int APPLES_MULT = 20;
 
     private Position position;
     private int eatenCounter;
@@ -44,8 +45,8 @@ public class Apple implements EatableEntity {
     @Override
     public void incrementEatenCounter() {
         this.eatenCounter++;
-        if (this.eatenCounter % 10 == 0) {
-            this.pointsValue += POINTS_CHANGE; // The points value for each apple eaten increments by 50 every ten apples eaten.
+        if (this.eatenCounter % APPLES_MULT == 0) {
+            this.pointsValue += POINTS_CHANGE; // The points value for each apple eaten increments by 50 every twenty apples eaten.
         }
     }
 

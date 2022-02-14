@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
 public class GameViewImpl implements GameView {
 
     private static final String FRAME_NAME = "Snake Game";
-    private static final String SCORE = "Score:";
+    private static final String SCORE = "Score: 0";
     private static final String PAUSE = "Pause";
     private static final String RESET = "Reset";
     private static final String QUIT = "Quit";
@@ -26,14 +26,16 @@ public class GameViewImpl implements GameView {
 
     private GameObserver observer;
     private final JFrame frame = new JFrame(FRAME_NAME);
+    private final JLabel lScore;
     private final MapView mapView;
 
-    public GameViewImpl() {
+    public GameViewImpl(final int xMapSize, final int yMapSize) {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WINDOW_SIZE);
         frame.getContentPane().setLayout(new BorderLayout());
         final JPanel pTop = new JPanel(new FlowLayout());
-        final JLabel lScore = new JLabel(SCORE);
+        lScore = new JLabel(SCORE);
+        lScore.setName(SCORE); // to be removed after testing
         pTop.add(lScore);
         final JPanel pBottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JButton bPause = new JButton(PAUSE);
@@ -53,7 +55,7 @@ public class GameViewImpl implements GameView {
                 observer.quit();
             }
         });
-        mapView = new MapView(21, 21);
+        mapView = new MapView(xMapSize, yMapSize);
         mapView.setBackground(new Color(0));
         mapView.setPreferredSize(WINDOW_SIZE);
         mapView.setFocusable(true);
@@ -71,6 +73,20 @@ public class GameViewImpl implements GameView {
      */
     public MapView getMapView() {
         return mapView;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public JLabel getScoreLabel() {
+        return lScore;
     }
 
     /**

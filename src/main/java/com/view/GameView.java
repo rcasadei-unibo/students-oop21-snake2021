@@ -1,6 +1,7 @@
 package main.java.com.view;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public interface GameView {
 
@@ -23,8 +24,20 @@ public interface GameView {
 
     /**
      * 
-     * @return the instance of the MapView
+     * @return the instance of the MapView.
      */
     MapView getMapView();
+
+    /**
+     * 
+     * @return the main JFrame of the view.
+     */
+    JFrame getFrame();
+
+    /**
+     * 
+     * @return the JLabel in which the score is written.
+     */
+    JLabel getScoreLabel();
 
 }

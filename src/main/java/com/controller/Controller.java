@@ -1,14 +1,12 @@
 package main.java.com.controller;
 
-import java.util.HashSet;
+
 import java.util.Queue;
-import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import main.java.com.model.GameModel;
 
 import main.java.com.model.Model;
-import main.java.com.utility.Direction;
 import main.java.com.view.GameObserver;
 import main.java.com.view.GameView;
 import main.java.com.view.GameViewImpl;
@@ -19,13 +17,15 @@ public class Controller implements GameObserver, InputController {
 
     private final Model model;
     private final GameView view;
+    private final ScoreManager sm;
     private final Queue<Command> cmdQueue;
     private boolean isGameOver;
     private boolean isPaused;
 
     public Controller() {
         model = new GameModel();
-        view = new GameViewImpl();
+        view = new GameViewImpl(model.getGameMap().getXMapSize(), model.getGameMap().getYMapSize());
+        sm = new ScoreManagerImpl(view, model);
         view.setObserver(this);
         view.getMapView().addKeyListener(new KeyNotifier(this));
         cmdQueue = new ArrayBlockingQueue<>(100);
@@ -46,6 +46,7 @@ public class Controller implements GameObserver, InputController {
                 // Check "collision". Probably the check needs to be done graphically.
                 if (model.getSnake().getPosition().equals(model.getApple().getPosition())) {
                     model.eatApple();
+                    sm.updateScore();
                 }
 
                 view.updateView();
@@ -79,7 +80,9 @@ public class Controller implements GameObserver, InputController {
     @Override
     public void pauseGame() {
         isPaused = !isPaused;
-        view.getMapView().requestFocusInWindow();
+        if (!isPaused) {
+            view.getMapView().requestFocusInWindow();
+        }
     }
 
     @Override
