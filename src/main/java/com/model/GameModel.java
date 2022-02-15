@@ -96,6 +96,8 @@ public class GameModel implements Model {
     @Override
     public void resetGame() {
         this.snake.setBodyPosition(this.getInitialSnake());
+        this.snake.setLength(INITIAL_BODY_LENGTH);
+        this.snake.resetDirection();
         this.apple.setPosition(this.randomApplePos());
         this.apple.resetTimesEaten();
         this.score = 0;

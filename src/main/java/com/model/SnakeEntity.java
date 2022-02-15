@@ -31,6 +31,11 @@ public interface SnakeEntity extends GameEntity {
     void setDirection(Direction dir);
 
     /**
+     * Resets the moving direction to the starting one, which is UP.
+     */
+    void resetDirection();
+
+    /**
      * Computes the next position in which the snake would move (considering only the snake's head).
      * @return the next position.
      */
@@ -52,6 +57,12 @@ public interface SnakeEntity extends GameEntity {
      * Increases the length of the snake by one unit.
      */
     void increaseLength();
+
+    /**
+     * Sets the length of the snake.
+     * @param l
+     */
+    void setLength(int l);
 
     /**
      * Move the snake by one step and update all of its positions.

@@ -74,7 +74,9 @@ public class Controller implements GameObserver, InputController {
 
     @Override
     public void resetGame() {
-        model.resetGame(); 
+        model.resetGame();
+        sm.updateScore();
+        view.getMapView().requestFocusInWindow();
     }
 
     @Override

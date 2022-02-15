@@ -138,6 +138,13 @@ public final class Snake implements SnakeEntity {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public void resetDirection() {
+        this.direction = Direction.UP;
+    }
+
     /** {@inheritDoc} */
     @Override
     public Position nextPosition() {
@@ -177,14 +184,19 @@ public final class Snake implements SnakeEntity {
     /** {@inheritDoc} */
     @Override
     public void increaseLength() {
-        // TODO Auto-generated method stub
         this.length++;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setLength(final int l) {
+        this.length = l;
     }
 
     /** {@inheritDoc} */
     @Override
     public void move() {
-        // TODO Auto-generated method stub
         // TODO JUnit test.
         // Check if the next position would hit a wall or another body part.
         if (this.body.contains(this.nextPosition())
