@@ -35,7 +35,6 @@ public class GameViewImpl implements GameView {
         frame.getContentPane().setLayout(new BorderLayout());
         final JPanel pTop = new JPanel(new FlowLayout());
         lScore = new JLabel(SCORE);
-        lScore.setName(SCORE); // to be removed after testing
         pTop.add(lScore);
         final JPanel pBottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JButton bPause = new JButton(PAUSE);

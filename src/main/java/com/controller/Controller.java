@@ -2,6 +2,7 @@ package main.java.com.controller;
 
 
 import java.util.Queue;
+
 import java.util.concurrent.ArrayBlockingQueue;
 
 import main.java.com.model.GameModel;
@@ -89,7 +90,7 @@ public class Controller implements GameObserver, InputController {
 
     @Override
     public void quit() {
-
+        System.exit(0);
     }
 
     @Override
