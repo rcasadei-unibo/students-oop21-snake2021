@@ -1,6 +1,4 @@
 package main.java.com.controller;
-
-
 import java.util.Queue;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -34,6 +32,7 @@ public class Controller implements GameObserver, InputController {
 
     public void mainLoop() {
         long lastTime = System.currentTimeMillis();
+        sm.showHiScore();
         while (true) {
             final long current = System.currentTimeMillis();
             final int elapsed = (int) (current - lastTime);
@@ -48,7 +47,16 @@ public class Controller implements GameObserver, InputController {
                 if (model.getSnake().getPosition().equals(model.getApple().getPosition())) {
                     model.eatApple();
                     sm.updateScore();
+                    sm.saveScore();
+                    sm.showHiScore();
                 }
+
+                /*
+                if (detectCollision()) {
+                    model.eatApple();
+                    sm.updateScore();
+                }
+                */
 
                 view.updateView();
             }
@@ -90,6 +98,7 @@ public class Controller implements GameObserver, InputController {
 
     @Override
     public void quit() {
+        sm.saveScore();
         System.exit(0);
     }
 
@@ -105,5 +114,10 @@ public class Controller implements GameObserver, InputController {
         if (cmd != null) {
             cmd.execute(model);
         }
+    }
+
+    private boolean detectCollision() {
+
+        return false;
     }
 }

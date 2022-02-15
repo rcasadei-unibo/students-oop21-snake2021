@@ -11,4 +11,9 @@ public interface ScoreManager {
      * Saves and stores the final score on a file.
      */
     void saveScore();
+
+    /**
+     * Shows the highscore on screen.
+     */
+    void showHiScore();
 }

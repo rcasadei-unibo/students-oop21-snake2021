@@ -2,23 +2,22 @@ package main.java.com.view;
 
 import java.awt.BorderLayout;
 
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 public class GameViewImpl implements GameView {
 
     private static final String FRAME_NAME = "Snake Game";
     private static final String SCORE = "Score: 0";
+    private static final String HI_SCORE = "Highscore: ";
     private static final String PAUSE = "Pause";
     private static final String RESET = "Reset";
     private static final String QUIT = "Quit";
@@ -27,6 +26,7 @@ public class GameViewImpl implements GameView {
     private GameObserver observer;
     private final JFrame frame = new JFrame(FRAME_NAME);
     private final JLabel lScore;
+    private final JLabel lHiScore;
     private final MapView mapView;
 
     public GameViewImpl(final int xMapSize, final int yMapSize) {
@@ -35,7 +35,9 @@ public class GameViewImpl implements GameView {
         frame.getContentPane().setLayout(new BorderLayout());
         final JPanel pTop = new JPanel(new FlowLayout());
         lScore = new JLabel(SCORE);
+        lHiScore = new JLabel(HI_SCORE);
         pTop.add(lScore);
+        pTop.add(lHiScore);
         final JPanel pBottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JButton bPause = new JButton(PAUSE);
         final JButton bReset = new JButton(RESET);
@@ -86,6 +88,13 @@ public class GameViewImpl implements GameView {
      */
     public JLabel getScoreLabel() {
         return lScore;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public JLabel getHiScoreLabel() {
+        return lHiScore;
     }
 
     /**

@@ -40,4 +40,10 @@ public interface GameView {
      */
     JLabel getScoreLabel();
 
+    /**
+     * 
+     * @return the JLabel in which the highscore is written.
+     */
+    JLabel getHiScoreLabel();
+
 }
