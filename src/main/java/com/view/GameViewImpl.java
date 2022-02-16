@@ -33,11 +33,18 @@ public class GameViewImpl implements GameView {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WINDOW_SIZE);
         frame.getContentPane().setLayout(new BorderLayout());
+
         final JPanel pTop = new JPanel(new FlowLayout());
         lScore = new JLabel(SCORE);
         lHiScore = new JLabel(HI_SCORE);
         pTop.add(lScore);
         pTop.add(lHiScore);
+
+        mapView = new MapView(xMapSize, yMapSize);
+        mapView.setBackground(new Color(0));
+        mapView.setPreferredSize(WINDOW_SIZE);
+        mapView.setFocusable(true);
+
         final JPanel pBottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JButton bPause = new JButton(PAUSE);
         final JButton bReset = new JButton(RESET);
@@ -49,17 +56,18 @@ public class GameViewImpl implements GameView {
         bReset.addActionListener(e -> {
             if (confirmDialog("Confirm resetting?", "Reset")) {
                 observer.resetGame();
+            } else {
+                mapView.requestFocusInWindow();
             }
         });
         bQuit.addActionListener(e -> {
             if (confirmDialog("Confirm quitting?", "Quit")) {
                 observer.quit();
+            } else {
+                mapView.requestFocusInWindow();
             }
         });
-        mapView = new MapView(xMapSize, yMapSize);
-        mapView.setBackground(new Color(0));
-        mapView.setPreferredSize(WINDOW_SIZE);
-        mapView.setFocusable(true);
+
         frame.getContentPane().add(pTop, BorderLayout.NORTH);
         frame.getContentPane().add(pBottom, BorderLayout.SOUTH);
         frame.getContentPane().add(mapView);
