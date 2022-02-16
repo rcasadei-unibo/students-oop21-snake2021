@@ -3,4 +3,4 @@ bin
 *.pdf
 *.log
 doc
-res/highscore.txt
+highscore.txt
