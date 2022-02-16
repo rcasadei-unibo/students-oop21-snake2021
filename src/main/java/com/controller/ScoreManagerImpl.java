@@ -15,7 +15,7 @@ public class ScoreManagerImpl implements ScoreManager {
 
     private static final String SCORE = "Score: ";
     private static final String HI_SCORE = "Highscore: ";
-    private static final String PATH = "res/highscore.txt";
+    private static final String PATH = "highscore.txt";
 
     private final GameView view;
     private final Model model;
@@ -69,8 +69,6 @@ public class ScoreManagerImpl implements ScoreManager {
     private int readScore() {
         try (BufferedReader r = new BufferedReader(new FileReader(file))) {
             return Integer.parseInt(r.readLine());
-            //final String s = r.readLine();
-            //return Integer.parseInt(s);
         } catch (IOException e) {
             e.printStackTrace();
         }

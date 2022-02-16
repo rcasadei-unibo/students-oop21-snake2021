@@ -85,6 +85,9 @@ public class Controller implements GameObserver, InputController {
     public void resetGame() {
         model.resetGame();
         sm.updateScore();
+        if (isPaused) {
+            isPaused = false;
+        }
         view.getMapView().requestFocusInWindow();
     }
 
@@ -98,7 +101,6 @@ public class Controller implements GameObserver, InputController {
 
     @Override
     public void quit() {
-        sm.saveScore();
         System.exit(0);
     }
 
