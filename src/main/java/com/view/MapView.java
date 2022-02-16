@@ -2,7 +2,9 @@ package main.java.com.view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,11 +26,18 @@ public class MapView extends JPanel {
     private final AppleView apple;
     private final SnakeView snake;
 
+    private Rectangle appleRect;
+    private Rectangle snakeHeadRect;
+
     public MapView(final int x, final int y) {
         xMapSize = x;
         ymapSize = y;
+        populateCells();
         apple = new AppleView(new Rectangle(CELL_SIZE, CELL_SIZE));
         snake = new SnakeView(new ArrayList<>());
+
+        appleRect = new Rectangle();
+        snakeHeadRect = new Rectangle();
     }
 
     /**
@@ -40,22 +49,6 @@ public class MapView extends JPanel {
         drawGrid(g);
         drawApple(g);
         drawSnake(g);
-
-        /*
-        g.setColor(Color.GREEN);
-        g.fillRect(cells.get(new Pos(20, 20)).getX(), cells.get(new Pos(20, 20)).getY(), CELL_SIZE, CELL_SIZE);
-        final Rectangle r = new Rectangle(new Dimension(CELL_SIZE, CELL_SIZE));
-        r.setLocation(cells.get(new Pos(4, 5)).getX(), cells.get(new Pos(4, 5)).getY());
-        g.setColor(Color.WHITE);
-        g.fillRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
-
-        apple.setPosition(new Pos(10, 10));
-        drawApple(g);
-        apple.setPosition(new Pos(10, 9));
-        drawApple(g);
-        apple.setPosition(new Pos(18, 3));
-        drawApple(g);
-        */
     }
 
     /**
@@ -81,6 +74,8 @@ public class MapView extends JPanel {
     private void drawApple(final Graphics g) {
         g.setColor(Color.RED);
         g.fillRect(cells.get(apple.getLocation()).getX(), cells.get(apple.getLocation()).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
+
+        appleRect = new Rectangle(cells.get(apple.getLocation()).getX(), cells.get(apple.getLocation()).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
     }
 
     /**
@@ -93,6 +88,8 @@ public class MapView extends JPanel {
             final Position p = new Pos((int) r.getLocation().getX(), (int) r.getLocation().getY());
             g.fillRect(cells.get(p).getX(), cells.get(p).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
         });
+
+        final Position p = new Pos((int) snake.getSnakeView().get(0).getX(), (int) snake.getSnakeView().get(0).getY());
     }
 
     /**
@@ -114,6 +111,16 @@ public class MapView extends JPanel {
 
     public SnakeView getSnakeView() {
         return snake;
+    }
+
+    public Rectangle getAppleRect() {
+        return new Rectangle(cells.get(apple.getLocation()).getX(), cells.get(apple.getLocation()).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
+    }
+
+    public Point2D getSnakeHeadCenter() {
+        final Position p = new Pos((int) snake.getSnakeView().get(0).getX(), (int) snake.getSnakeView().get(0).getY());
+        final Rectangle r  = new Rectangle(cells.get(p).getX(), cells.get(p).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
+        return new Point((int) (r.getLocation().getX() + r.getWidth() / 2), (int) (r.getLocation().getY() + r.getHeight() / 2));
     }
 
 }

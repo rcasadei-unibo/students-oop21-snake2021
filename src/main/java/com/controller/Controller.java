@@ -1,4 +1,5 @@
 package main.java.com.controller;
+
 import java.util.Queue;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -12,11 +13,12 @@ import main.java.com.view.GameViewImpl;
 
 public class Controller implements GameObserver, InputController {
 
-    private static final long PERIOD = 80;
+    private static final long PERIOD = 70;
 
     private final Model model;
     private final GameView view;
     private final ScoreManager sm;
+    private final CollisionManager cm;
     private final Queue<Command> cmdQueue;
     private boolean isGameOver;
     private boolean isPaused;
@@ -25,6 +27,7 @@ public class Controller implements GameObserver, InputController {
         model = new GameModel();
         view = new GameViewImpl(model.getGameMap().getXMapSize(), model.getGameMap().getYMapSize());
         sm = new ScoreManagerImpl(view, model);
+        cm = new CollisionManagerImpl(sm);
         view.setObserver(this);
         view.getMapView().addKeyListener(new KeyNotifier(this));
         cmdQueue = new ArrayBlockingQueue<>(100);
@@ -44,19 +47,25 @@ public class Controller implements GameObserver, InputController {
                 model.moveSnake();
 
                 // Check "collision". Probably the check needs to be done graphically.
+                /*
                 if (model.getSnake().getPosition().equals(model.getApple().getPosition())) {
                     model.eatApple();
                     sm.updateScore();
                     sm.saveScore();
                     sm.showHiScore();
                 }
+                */
 
                 /*
                 if (detectCollision()) {
                     model.eatApple();
                     sm.updateScore();
+                    sm.saveScore();
+                    sm.showHiScore();
                 }
                 */
+
+                cm.manageAppleCollision(view, model);
 
                 view.updateView();
             }
@@ -119,7 +128,6 @@ public class Controller implements GameObserver, InputController {
     }
 
     private boolean detectCollision() {
-
-        return false;
+        return view.getMapView().getAppleRect().contains(view.getMapView().getSnakeHeadCenter());
     }
 }
