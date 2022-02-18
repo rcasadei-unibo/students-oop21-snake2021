@@ -20,7 +20,7 @@ public class Controller implements GameObserver, InputController {
     private final ScoreManager sm;
     private final CollisionManager cm;
     private final Queue<Command> cmdQueue;
-    private boolean isGameOver;
+    private boolean quit;
     private boolean isPaused;
 
     public Controller() {
@@ -116,6 +116,7 @@ public class Controller implements GameObserver, InputController {
 
     @Override
     public void quit() {
+        //quit = true;
         System.exit(0);
     }
 

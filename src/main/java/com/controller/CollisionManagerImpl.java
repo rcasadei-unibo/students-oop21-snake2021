@@ -1,12 +1,11 @@
 package main.java.com.controller;
 
 import java.awt.Point;
+
 import java.awt.Rectangle;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 import main.java.com.model.Model;
-import main.java.com.utility.Direction;
 import main.java.com.view.GameObserver;
 import main.java.com.view.GameOver;
 import main.java.com.view.GameView;
@@ -14,12 +13,12 @@ import main.java.com.view.GameView;
 public class CollisionManagerImpl implements CollisionManager {
 
     private final ScoreManager sm;
-    private final GameOver go;
+    private final GameOver gameOver;
 
     public CollisionManagerImpl(final ScoreManager scoreMan, final GameObserver observer) {
         sm = scoreMan;
-        go = new GameOver();
-        go.setObserver(observer);
+        gameOver = new GameOver();
+        gameOver.setObserver(observer);
     }
 
     @Override
@@ -37,7 +36,7 @@ public class CollisionManagerImpl implements CollisionManager {
         if (detectWallCollision(view) || detectBodyCollision(view)) {
             model.getSnake().die();
             view.getFrame().setEnabled(false);
-            go.show();
+            gameOver.show();
         }
     }
 
