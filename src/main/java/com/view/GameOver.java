@@ -16,7 +16,7 @@ public class GameOver {
     private static final String GAME_OVER = "Game Over";
     private static final String RESTART = "Restart";
     private static final String QUIT = "Quit";
-    private static final String G_O_PATH = "res/game_over.png";
+    private static final String G_O_PATH = "res" + System.getProperty("file.separator") + "game_over.png";
     private static final Color TRANSPARENT = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
     private GameObserver observer;
@@ -29,7 +29,6 @@ public class GameOver {
 
         final JLabel lGameOver = new JLabel(GAME_OVER, SwingConstants.CENTER);
         final JLabel lImg = new JLabel(new ImageIcon(G_O_PATH), SwingConstants.CENTER);
-        lGameOver.setPreferredSize(new Dimension(400, 150));
         frame.getContentPane().add(lImg, BorderLayout.CENTER);
 
         final JPanel pBottom = new JPanel(new FlowLayout(FlowLayout.CENTER));
