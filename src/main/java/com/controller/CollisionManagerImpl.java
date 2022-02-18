@@ -6,14 +6,20 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 import main.java.com.model.Model;
+import main.java.com.utility.Direction;
+import main.java.com.view.GameObserver;
+import main.java.com.view.GameOver;
 import main.java.com.view.GameView;
 
 public class CollisionManagerImpl implements CollisionManager {
 
     private final ScoreManager sm;
+    private final GameOver go;
 
-    public CollisionManagerImpl(final ScoreManager scoreMan) {
+    public CollisionManagerImpl(final ScoreManager scoreMan, final GameObserver observer) {
         sm = scoreMan;
+        go = new GameOver();
+        go.setObserver(observer);
     }
 
     @Override
@@ -29,8 +35,9 @@ public class CollisionManagerImpl implements CollisionManager {
     @Override
     public void manageWallOrBodyCollision(final GameView view, final Model model) {
         if (detectWallCollision(view) || detectBodyCollision(view)) {
-            //System.exit(0);
-            System.out.println("Game Over");
+            model.getSnake().die();
+            view.getFrame().setEnabled(false);
+            go.show();
         }
     }
 

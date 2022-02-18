@@ -68,4 +68,6 @@ public interface SnakeEntity extends GameEntity {
      * Move the snake by one step and update all of its positions.
      */
     void move();
+
+    void die();
 }

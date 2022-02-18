@@ -27,7 +27,7 @@ public class Controller implements GameObserver, InputController {
         model = new GameModel();
         view = new GameViewImpl(model.getGameMap().getXMapSize(), model.getGameMap().getYMapSize());
         sm = new ScoreManagerImpl(view, model);
-        cm = new CollisionManagerImpl(sm);
+        cm = new CollisionManagerImpl(sm, this);
         view.setObserver(this);
         view.getMapView().addKeyListener(new KeyNotifier(this));
         cmdQueue = new ArrayBlockingQueue<>(100);
@@ -45,6 +45,10 @@ public class Controller implements GameObserver, InputController {
 
                 view.getMapView().getAppleView().setPosition(model.getApple().getPosition());
                 view.getMapView().getSnakeView().setBody(model.getSnake().getBodyPosition());
+
+                cm.manageAppleCollision(view, model);
+                cm.manageWallOrBodyCollision(view, model);
+                
                 model.moveSnake();
 
                 // Check "collision". Probably the check needs to be done graphically.
@@ -66,8 +70,6 @@ public class Controller implements GameObserver, InputController {
                 }
                 */
 
-                cm.manageAppleCollision(view, model);
-                cm.manageWallOrBodyCollision(view, model);
 
                 view.updateView();
 
@@ -100,6 +102,7 @@ public class Controller implements GameObserver, InputController {
         if (isPaused) {
             isPaused = false;
         }
+        view.getFrame().setEnabled(true);
         view.getMapView().requestFocusInWindow();
     }
 

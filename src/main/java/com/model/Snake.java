@@ -22,6 +22,8 @@ public final class Snake implements SnakeEntity {
     /** The size of the map on the y-coordinate. */
     private final int mapSizeY;
 
+    private boolean dead = false;
+
     /**
      * 
      * @param dir the direction.
@@ -143,6 +145,7 @@ public final class Snake implements SnakeEntity {
      */
     public void resetDirection() {
         this.direction = Direction.UP;
+        this.dead = false;
     }
 
     /** {@inheritDoc} */
@@ -211,12 +214,17 @@ public final class Snake implements SnakeEntity {
 
         /** Probably it has to be done like this. Add the new element on the head and remove the one on the tail.
          */
+        if (!this.dead) {
         this.headPosition = this.nextPosition();
         if (this.length == this.body.size()) {   // The length field should be increased when snake eats an apple,
             this.body.remove(this.body.size() - 1);  // so we could use it to know when not to remove the element on the tail.
         }
         this.body.add(0, this.headPosition);
+        }
+    }
 
+    public void die() {
+        this.dead = true;
     }
 
 }

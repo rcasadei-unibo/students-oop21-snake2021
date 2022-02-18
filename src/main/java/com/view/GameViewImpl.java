@@ -3,6 +3,7 @@ package main.java.com.view;
 import java.awt.BorderLayout;
 
 
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -24,12 +25,13 @@ public class GameViewImpl implements GameView {
     private static final Dimension WINDOW_SIZE = new Dimension(1000, 800);
 
     private GameObserver observer;
-    private final JFrame frame = new JFrame(FRAME_NAME);
+    private final JFrame frame;
     private final JLabel lScore;
     private final JLabel lHiScore;
     private final MapView mapView;
 
     public GameViewImpl(final int xMapSize, final int yMapSize) {
+        frame = new JFrame(FRAME_NAME);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WINDOW_SIZE);
         frame.getContentPane().setLayout(new BorderLayout());
@@ -41,7 +43,7 @@ public class GameViewImpl implements GameView {
         pTop.add(lHiScore);
 
         mapView = new MapView(xMapSize, yMapSize);
-        mapView.setBackground(new Color(0));
+        mapView.setBackground(Color.BLACK);
         mapView.setPreferredSize(WINDOW_SIZE);
         mapView.setFocusable(true);
 
@@ -71,6 +73,7 @@ public class GameViewImpl implements GameView {
         frame.getContentPane().add(pTop, BorderLayout.NORTH);
         frame.getContentPane().add(pBottom, BorderLayout.SOUTH);
         frame.getContentPane().add(mapView);
+        frame.setUndecorated(true);
         frame.setLocationRelativeTo(null); // Centers the frame on the screen.
         frame.setResizable(true);
         frame.pack();
