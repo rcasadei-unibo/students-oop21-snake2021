@@ -89,7 +89,7 @@ public class GameModel implements Model {
     @Override
     public boolean hitWallorBody() {
         return this.snake.getBodyPosition().contains(this.snake.nextPosition())
-                || this.gameMap.getWalls().contains(this.snake.nextPosition());
+                || this.gameMap.getWalls().contains(this.snake.getPosition());
     }
 
     /** {@inheritDoc} */

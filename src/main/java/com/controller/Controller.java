@@ -66,8 +66,10 @@ public class Controller implements GameObserver, InputController {
                 */
 
                 cm.manageAppleCollision(view, model);
+                cm.manageWallOrBodyCollision(view, model);
 
                 view.updateView();
+
             }
 
             waitForNextFrame(current);
@@ -125,9 +127,5 @@ public class Controller implements GameObserver, InputController {
         if (cmd != null) {
             cmd.execute(model);
         }
-    }
-
-    private boolean detectCollision() {
-        return view.getMapView().getAppleRect().contains(view.getMapView().getSnakeHeadCenter());
     }
 }
