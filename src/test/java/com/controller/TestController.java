@@ -6,7 +6,6 @@ public class TestController {
 
     public static void main(final String[] args) {
         final Controller c = new Controller();
-        c.getView().start();
         c.mainLoop();
     }
 }

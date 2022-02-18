@@ -35,6 +35,7 @@ public class Controller implements GameObserver, InputController {
 
     public void mainLoop() {
         long lastTime = System.currentTimeMillis();
+        view.start();
         sm.showHiScore();
         while (true) {
             final long current = System.currentTimeMillis();

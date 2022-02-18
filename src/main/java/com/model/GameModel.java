@@ -99,7 +99,7 @@ public class GameModel implements Model {
         this.snake.setLength(INITIAL_BODY_LENGTH);
         this.snake.resetDirection();
         this.apple.setPosition(this.randomApplePos());
-        this.apple.resetTimesEaten();
+        this.apple.resetPoints();
         this.score = 0;
     }
 

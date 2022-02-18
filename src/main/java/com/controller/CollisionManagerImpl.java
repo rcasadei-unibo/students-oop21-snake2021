@@ -29,7 +29,8 @@ public class CollisionManagerImpl implements CollisionManager {
     @Override
     public void manageWallOrBodyCollision(final GameView view, final Model model) {
         if (detectWallCollision(view) || detectBodyCollision(view)) {
-            System.exit(0);
+            //System.exit(0);
+            System.out.println("Game Over");
         }
     }
 

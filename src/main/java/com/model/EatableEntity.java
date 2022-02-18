@@ -23,7 +23,7 @@ public interface EatableEntity extends GameEntity {
     /**
      * Resets the times the apple has been eaten.
      */
-    void resetTimesEaten();
+    void resetPoints();
 
     /**
      * Increment the number of times this entity has been eaten.

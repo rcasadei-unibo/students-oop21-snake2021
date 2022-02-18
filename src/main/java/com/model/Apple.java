@@ -37,8 +37,9 @@ public class Apple implements EatableEntity {
     }
 
     /** {@inheritDoc} */
-    public void resetTimesEaten() {
+    public void resetPoints() {
         this.eatenCounter = 0;
+        this.pointsValue = INITIAL_POINTS;
     }
 
     /** {@inheritDoc}*/
