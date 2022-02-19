@@ -1,9 +1,10 @@
 package main.java.com.view;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,13 +28,12 @@ public class GameOver {
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.getContentPane().setLayout(new BorderLayout());
 
-        final JLabel lGameOver = new JLabel(GAME_OVER, SwingConstants.CENTER);
         final JLabel lImg = new JLabel(new ImageIcon(G_O_PATH), SwingConstants.CENTER);
         frame.getContentPane().add(lImg, BorderLayout.CENTER);
 
         final JPanel pBottom = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        final JButton bRestart = new JButton(RESTART);
-        final JButton bQuit = new JButton(QUIT);
+        final JButton bRestart = new MyButton(RESTART);
+        final JButton bQuit = new MyButton(QUIT);
         bRestart.addActionListener(e -> {
             observer.resetGame();
             frame.setVisible(false);

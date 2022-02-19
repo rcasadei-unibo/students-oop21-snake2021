@@ -4,14 +4,11 @@ import java.awt.BorderLayout;
 
 
 
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,8 +24,7 @@ public class GameViewImpl implements GameView {
     private static final String PAUSE = "Pause";
     private static final String RESET = "Reset";
     private static final String QUIT = "Quit";
-    private static final int FONT_SIZE = 21;
-    private static final String FONT_NAME = "Tahoma";
+    private static final Font FONT = new Font("Tahoma", Font.BOLD, 21);
     private static final Dimension WINDOW_SIZE = new Dimension(1000, 800);
 
     private GameObserver observer;
@@ -48,8 +44,8 @@ public class GameViewImpl implements GameView {
         lHiScore = new JLabel(HI_SCORE);
         lScore.setForeground(Color.WHITE);
         lHiScore.setForeground(Color.WHITE);
-        lScore.setFont(new Font(FONT_NAME, Font.BOLD, FONT_SIZE));
-        lHiScore.setFont(new Font(FONT_NAME, Font.BOLD, FONT_SIZE));
+        lScore.setFont(FONT);
+        lHiScore.setFont(FONT);
         pTop.setBackground(Color.BLACK);
         pTop.add(lScore);
         pTop.add(lHiScore);
@@ -60,16 +56,10 @@ public class GameViewImpl implements GameView {
         mapView.setFocusable(true);
 
         final JPanel pBottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JButton bPause = new JButton(PAUSE);
-        final JButton bReset = new JButton(RESET);
-        final JButton bQuit = new JButton(QUIT);
-        final Set<JButton> btns = new HashSet<>(Stream.of(bReset, bPause, bQuit).collect(Collectors.toSet()));
+        final JButton bPause = new MyButton(PAUSE);
+        final JButton bReset = new MyButton(RESET);
+        final JButton bQuit = new MyButton(QUIT);
         pBottom.setBackground(Color.BLACK);
-        btns.stream().forEach(btn -> {
-            btn.setBackground(Color.WHITE);
-            btn.setFont(new Font(FONT_NAME, Font.BOLD, FONT_SIZE));
-            pBottom.add(btn);
-        });
         bPause.addActionListener(e -> observer.pauseGame());
         bReset.addActionListener(e -> {
             observer.pauseGame();
@@ -89,6 +79,9 @@ public class GameViewImpl implements GameView {
                 observer.pauseGame();
             }
         });
+        pBottom.add(bPause);
+        pBottom.add(bReset);
+        pBottom.add(bQuit);
 
         frame.getContentPane().add(pTop, BorderLayout.NORTH);
         frame.getContentPane().add(pBottom, BorderLayout.SOUTH);
