@@ -107,6 +107,8 @@ public class Controller implements GameObserver, InputController {
 
     public void start() {
         view.enableButtons();
+        view.getMapView().setFocusable(true);
+        view.getMapView().requestFocusInWindow();
         isStarted = true;
     }
 

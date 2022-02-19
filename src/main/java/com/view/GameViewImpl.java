@@ -97,7 +97,7 @@ public class GameViewImpl implements GameView {
         frame.setUndecorated(true);
         frame.setLocationRelativeTo(null); // Centers the frame on the screen.
         frame.pack();
-        mapView.requestFocusInWindow();
+        mapView.setFocusable(false);
     }
 
     /**
