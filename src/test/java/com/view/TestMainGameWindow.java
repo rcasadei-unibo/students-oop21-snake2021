@@ -8,6 +8,6 @@ public class TestMainGameWindow {
 
     public static void main(final String[] args) {
         final GameView gv = new GameViewImpl(21, 21);
-        gv.start();
+        gv.show();
     }
 }

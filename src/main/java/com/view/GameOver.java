@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class GameOver {
+public class GameOver implements BasicWindow {
 
     private static final String GAME_OVER = "Game Over";
     private static final String RESTART = "Restart";
@@ -55,10 +55,16 @@ public class GameOver {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void show() {
         frame.setVisible(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void setObserver(final GameObserver obs) {
         observer = obs;
     }

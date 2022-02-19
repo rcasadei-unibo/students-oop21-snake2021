@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
 import main.java.com.model.Model;
+import main.java.com.view.BasicWindow;
 import main.java.com.view.GameObserver;
 import main.java.com.view.GameOver;
 import main.java.com.view.GameView;
@@ -13,7 +14,7 @@ import main.java.com.view.GameView;
 public class CollisionManagerImpl implements CollisionManager {
 
     private final ScoreManager sm;
-    private final GameOver gameOver;
+    private final BasicWindow gameOver;
 
     public CollisionManagerImpl(final ScoreManager scoreMan, final GameObserver observer) {
         sm = scoreMan;
@@ -59,6 +60,7 @@ public class CollisionManagerImpl implements CollisionManager {
     }
 
     private boolean detectBodyCollision(final GameView view) {
+        // TODO Might be better to use a stream
         for (final Rectangle r : view.getMapView().getSnakeBody()) {
             if (r.contains(view.getMapView().getSnakeHeadCenter())) {
                 return true;

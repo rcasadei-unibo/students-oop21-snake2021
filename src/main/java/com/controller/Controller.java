@@ -1,5 +1,6 @@
 package main.java.com.controller;
 
+import java.awt.event.WindowEvent;
 import java.util.Queue;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -13,15 +14,17 @@ import main.java.com.view.GameViewImpl;
 
 public class Controller implements GameObserver, InputController {
 
-    private static final long PERIOD = 70;
+    private static final long PERIOD = 80;
 
     private final Model model;
     private final GameView view;
     private final ScoreManager sm;
     private final CollisionManager cm;
     private final Queue<Command> cmdQueue;
-    private boolean quit;
     private boolean isPaused;
+    private boolean isStarted;
+
+    private boolean quit;
 
     public Controller() {
         model = new GameModel();
@@ -35,12 +38,14 @@ public class Controller implements GameObserver, InputController {
 
     public void mainLoop() {
         long lastTime = System.currentTimeMillis();
-        view.start();
+        view.getMapView().getAppleView().setPosition(model.getApple().getPosition());
+        view.getMapView().getSnakeView().setBody(model.getSnake().getBodyPosition());
+        view.show();
         sm.showHiScore();
-        while (true) {
+        while (!quit) {
             final long current = System.currentTimeMillis();
             final int elapsed = (int) (current - lastTime);
-            if (!isPaused) {
+            if (!isPaused && isStarted) {
                 processInput();
 
                 view.getMapView().getAppleView().setPosition(model.getApple().getPosition());
@@ -48,31 +53,10 @@ public class Controller implements GameObserver, InputController {
 
                 cm.manageAppleCollision(view, model);
                 cm.manageWallOrBodyCollision(view, model);
-                
+
                 model.moveSnake();
 
-                // Check "collision". Probably the check needs to be done graphically.
-                /*
-                if (model.getSnake().getPosition().equals(model.getApple().getPosition())) {
-                    model.eatApple();
-                    sm.updateScore();
-                    sm.saveScore();
-                    sm.showHiScore();
-                }
-                */
-
-                /*
-                if (detectCollision()) {
-                    model.eatApple();
-                    sm.updateScore();
-                    sm.saveScore();
-                    sm.showHiScore();
-                }
-                */
-
-
                 view.updateView();
-
             }
 
             waitForNextFrame(current);
@@ -116,8 +100,14 @@ public class Controller implements GameObserver, InputController {
 
     @Override
     public void quit() {
-        //quit = true;
-        System.exit(0);
+        quit = true;
+        view.getFrame().dispatchEvent(new WindowEvent(view.getFrame(), WindowEvent.WINDOW_CLOSING));
+        //System.exit(0);
+    }
+
+    public void start() {
+        view.enableButtons();
+        isStarted = true;
     }
 
     @Override

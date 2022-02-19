@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,6 +32,7 @@ public class GameViewImpl implements GameView {
     private final JFrame frame;
     private final JLabel lScore;
     private final JLabel lHiScore;
+    private final JButton bPause, bReset, bQuit;
     private final MapView mapView;
 
     public GameViewImpl(final int xMapSize, final int yMapSize) {
@@ -56,11 +58,12 @@ public class GameViewImpl implements GameView {
         mapView.setFocusable(true);
 
         final JPanel pBottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JButton bPause = new MyButton(PAUSE);
-        final JButton bReset = new MyButton(RESET);
-        final JButton bQuit = new MyButton(QUIT);
+        bPause = new MyButton(PAUSE);
+        bReset = new MyButton(RESET);
+        bQuit = new MyButton(QUIT);
         pBottom.setBackground(Color.BLACK);
         bPause.addActionListener(e -> observer.pauseGame());
+        bPause.setMnemonic(KeyEvent.VK_Z); // ALT + Z to pause the game
         bReset.addActionListener(e -> {
             observer.pauseGame();
             if (confirmDialog("Confirm resetting?", "Reset")) {
@@ -70,6 +73,7 @@ public class GameViewImpl implements GameView {
                 observer.pauseGame();
             }
         });
+        bReset.setMnemonic(KeyEvent.VK_X); // ALT + X to reset the game
         bQuit.addActionListener(e -> {
             observer.pauseGame();
             if (confirmDialog("Confirm quitting?", "Quit")) {
@@ -79,6 +83,10 @@ public class GameViewImpl implements GameView {
                 observer.pauseGame();
             }
         });
+        bQuit.setMnemonic(KeyEvent.VK_C); // ALT + C to quit the game
+        bPause.setEnabled(false);
+        bReset.setEnabled(false);
+        bQuit.setEnabled(false);
         pBottom.add(bPause);
         pBottom.add(bReset);
         pBottom.add(bQuit);
@@ -132,7 +140,7 @@ public class GameViewImpl implements GameView {
      * {@inheritDoc}
      */
     @Override
-    public void start() {
+    public void show() {
         this.frame.setVisible(true);
     }
 
@@ -142,6 +150,12 @@ public class GameViewImpl implements GameView {
     @Override
     public void updateView() {
         frame.repaint();
+    }
+
+    public void enableButtons() {
+        bPause.setEnabled(true);
+        bReset.setEnabled(true);
+        bQuit.setEnabled(true);
     }
 
     private boolean confirmDialog(final String question, final String name) {

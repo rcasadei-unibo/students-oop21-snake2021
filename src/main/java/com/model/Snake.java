@@ -22,7 +22,7 @@ public final class Snake implements SnakeEntity {
     /** The size of the map on the y-coordinate. */
     private final int mapSizeY;
 
-    private boolean dead = false;
+    private boolean dead;
 
     /**
      * 

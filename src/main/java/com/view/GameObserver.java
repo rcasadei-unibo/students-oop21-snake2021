@@ -16,4 +16,9 @@ public interface GameObserver {
      * Quits the game closing the application.
      */
     void quit();
+
+    /**
+     * Starts the game the first time.
+     */
+    void start();
 }
