@@ -2,19 +2,25 @@ package main.java.com.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class GameStart implements BasicWindow {
+
+    private static final String IMG_NAME = "/start.png";
 
     private GameObserver observer;
     private final JFrame frame;
 
     public GameStart() {
         frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(new BorderLayout());
-        final JButton start = new GameStartButton();
+        final ImageIcon imgStart = new ImageIcon(getClass().getResource(IMG_NAME));
+        final JButton start = new JButton(imgStart);
+        start.setPreferredSize(new Dimension(imgStart.getIconWidth(), imgStart.getIconHeight()));
         start.addActionListener(e -> {
             frame.setVisible(false);
             observer.start();

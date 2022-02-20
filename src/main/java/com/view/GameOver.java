@@ -17,7 +17,7 @@ public class GameOver implements BasicWindow {
     private static final String GAME_OVER = "Game Over";
     private static final String RESTART = "Restart";
     private static final String QUIT = "Quit";
-    private static final String G_O_PATH = "res" + System.getProperty("file.separator") + "game_over.png";
+    private static final String IMG_NAME = "/game_over.png";
     private static final Color TRANSPARENT = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
     private GameObserver observer;
@@ -28,7 +28,7 @@ public class GameOver implements BasicWindow {
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.getContentPane().setLayout(new BorderLayout());
 
-        final JLabel lImg = new JLabel(new ImageIcon(G_O_PATH), SwingConstants.CENTER);
+        final JLabel lImg = new JLabel(new ImageIcon(getClass().getResource(IMG_NAME)), SwingConstants.CENTER);
         frame.getContentPane().add(lImg, BorderLayout.CENTER);
 
         final JPanel pBottom = new JPanel(new FlowLayout(FlowLayout.CENTER));
