@@ -62,7 +62,11 @@ public class GameViewImpl implements GameView {
         bReset = new MyButton(RESET);
         bQuit = new MyButton(QUIT);
         pBottom.setBackground(Color.BLACK);
-        bPause.addActionListener(e -> observer.pauseGame());
+        bPause.addActionListener(e -> {
+            bReset.setEnabled(false);
+            bQuit.setEnabled(false);
+            observer.pauseGame();
+        });
         bPause.setMnemonic(KeyEvent.VK_Z); // ALT + Z to pause the game
         bReset.addActionListener(e -> {
             observer.pauseGame();

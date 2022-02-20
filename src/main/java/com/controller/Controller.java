@@ -95,6 +95,7 @@ public class Controller implements GameObserver, InputController {
         isPaused = !isPaused;
         if (!isPaused) {
             view.getMapView().requestFocusInWindow();
+            view.enableButtons();
         }
     }
 
