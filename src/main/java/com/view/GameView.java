@@ -39,4 +39,9 @@ public interface GameView extends BasicWindow {
      */
     JLabel getHiScoreLabel();
 
+    /**
+     * Shows the game over window on screen.
+     */
+    void showGameOver();
+
 }

@@ -7,9 +7,9 @@ public class SnakeGame {
 
     public static void main(final String[] args) {
         final Controller c = new Controller();
-        final BasicWindow gs = new GameStart();
-        gs.setObserver(c);
-        gs.show();
+        //final BasicWindow gs = new GameStart();
+        //gs.setObserver(c);
+        //gs.show();
         c.mainLoop();
     }
 }

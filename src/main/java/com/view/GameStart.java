@@ -30,7 +30,6 @@ public class GameStart implements BasicWindow {
         frame.setBackground(Color.WHITE);
         frame.setResizable(false);
         frame.pack();
-        frame.setLocationRelativeTo(null);
         frame.setAlwaysOnTop(true);
     }
 
@@ -48,6 +47,11 @@ public class GameStart implements BasicWindow {
     @Override
     public void setObserver(final GameObserver obs) {
         observer = obs;
+    }
+
+    @Override
+    public JFrame getFrame() {
+        return frame;
     }
 
 }

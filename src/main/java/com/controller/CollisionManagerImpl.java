@@ -14,12 +14,9 @@ import main.java.com.view.GameView;
 public class CollisionManagerImpl implements CollisionManager {
 
     private final ScoreManager sm;
-    private final BasicWindow gameOver;
 
-    public CollisionManagerImpl(final ScoreManager scoreMan, final GameObserver observer) {
+    public CollisionManagerImpl(final ScoreManager scoreMan) {
         sm = scoreMan;
-        gameOver = new GameOver();
-        gameOver.setObserver(observer);
     }
 
     @Override
@@ -37,7 +34,7 @@ public class CollisionManagerImpl implements CollisionManager {
         if (detectWallCollision(view) || detectBodyCollision(view)) {
             model.getSnake().die();
             view.getFrame().setEnabled(false);
-            gameOver.show();
+            view.showGameOver();
         }
     }
 
@@ -51,12 +48,7 @@ public class CollisionManagerImpl implements CollisionManager {
     }
 
     private boolean detectWallCollision(final GameView view) {
-        final Point2D head = view.getMapView().getSnakeHeadCenter();
-        // Very ugly. Can't find out why first call of getSnakeHeadCenter() returns a point at (0,0)
-        if (head.equals(new Point(0, 0))) {
-            return false;
-        }
-        return !view.getMapView().getMapBounds().contains(head);
+        return !view.getMapView().getMapBounds().contains(view.getMapView().getSnakeHeadCenter());
     }
 
     private boolean detectBodyCollision(final GameView view) {

@@ -51,7 +51,6 @@ public class GameOver implements BasicWindow {
         frame.setAlwaysOnTop(true);
         frame.pack();
         frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
 
     }
 
@@ -67,6 +66,11 @@ public class GameOver implements BasicWindow {
      */
     public void setObserver(final GameObserver obs) {
         observer = obs;
+    }
+
+    @Override
+    public JFrame getFrame() {
+        return frame;
     }
 
 }

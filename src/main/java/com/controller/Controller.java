@@ -30,7 +30,7 @@ public class Controller implements GameObserver, InputController {
         model = new GameModel();
         view = new GameViewImpl(model.getGameMap().getXMapSize(), model.getGameMap().getYMapSize());
         sm = new ScoreManagerImpl(view, model);
-        cm = new CollisionManagerImpl(sm, this);
+        cm = new CollisionManagerImpl(sm);
         view.setObserver(this);
         view.getMapView().addKeyListener(new KeyNotifier(this));
         cmdQueue = new ArrayBlockingQueue<>(100);

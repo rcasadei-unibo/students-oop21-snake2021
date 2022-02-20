@@ -1,5 +1,7 @@
 package main.java.com.view;
 
+import javax.swing.JFrame;
+
 public interface BasicWindow {
 
     /**
@@ -12,4 +14,6 @@ public interface BasicWindow {
      * @param obs
      */
     void setObserver(GameObserver obs);
+
+    JFrame getFrame();
 }

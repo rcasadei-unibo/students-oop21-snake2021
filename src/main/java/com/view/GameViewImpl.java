@@ -34,12 +34,18 @@ public class GameViewImpl implements GameView {
     private final JLabel lHiScore;
     private final JButton bPause, bReset, bQuit;
     private final MapView mapView;
+    private final BasicWindow gameOver;
+    private final BasicWindow gameStart;
 
     public GameViewImpl(final int xMapSize, final int yMapSize) {
         frame = new JFrame(FRAME_NAME);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(WINDOW_SIZE);
+        frame.setMinimumSize(WINDOW_SIZE);
         frame.getContentPane().setLayout(new BorderLayout());
+
+        gameOver = new GameOver();
+        gameStart = new GameStart();
+        gameStart.show();
 
         final JPanel pTop = new JPanel(new FlowLayout());
         lScore = new JLabel(SCORE);
@@ -102,6 +108,8 @@ public class GameViewImpl implements GameView {
         frame.setLocationRelativeTo(null); // Centers the frame on the screen.
         frame.pack();
         mapView.setFocusable(false);
+        gameStart.getFrame().setLocationRelativeTo(frame);
+        gameOver.getFrame().setLocationRelativeTo(frame);
     }
 
     /**
@@ -136,8 +144,10 @@ public class GameViewImpl implements GameView {
      * {@inheritDoc}
      */
     @Override
-    public void setObserver(final GameObserver observer) {
-        this.observer = observer;
+    public void setObserver(final GameObserver obs) {
+        observer = obs;
+        gameOver.setObserver(obs);
+        gameStart.setObserver(obs);
     }
 
     /**
@@ -151,11 +161,21 @@ public class GameViewImpl implements GameView {
     /**
      * {@inheritDoc}
      */
+    public void showGameOver() {
+        gameOver.show();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateView() {
         frame.repaint();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void enableButtons() {
         bPause.setEnabled(true);
         bReset.setEnabled(true);
