@@ -106,6 +106,9 @@ public class MapView extends JPanel {
      */
     private void drawSnake(final Graphics g) {
         g.setColor(Color.WHITE);
+        if (!getMapBounds().contains(getSnakeHeadCenter())) {
+            snake.getSnakeView().remove(0);
+        }
         snake.getSnakeView().stream().forEach(r -> {
             final Position p = new Pos((int) r.getLocation().getX(), (int) r.getLocation().getY());
             g.fillRect(cells.get(p).getX(), cells.get(p).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
@@ -116,11 +119,9 @@ public class MapView extends JPanel {
      * Populates the map containing all the coordinates for the cells.
      */
     private void populateCells() {
-        final Position start = new Pos((this.getWidth() - xMapSize * CELL_SIZE) / 2,
-                                        (this.getHeight() - ymapSize * CELL_SIZE) / 2);
         for (int i = -1; i <= xMapSize + 1; i++) {
             for (int j = -1; j <= ymapSize + 1; j++) {
-                cells.put(new Pos(i, j), new Pos(start.getX() + i * CELL_SIZE, start.getY() + j * CELL_SIZE));
+                cells.put(new Pos(i, j), new Pos(getStartPos().getX() + i * CELL_SIZE, getStartPos().getY() + j * CELL_SIZE));
             }
         }
     }

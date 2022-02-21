@@ -16,7 +16,7 @@ public class GameModel implements Model {
     private static final int INITIAL_BODY_LENGTH = 5;
     private static final int X_MAP_SIZE = 21;
     private static final int Y_MAP_SIZE = 21;
-    private static final Position SNAKE_START_POSITION = new Pos(X_MAP_SIZE / 2, Y_MAP_SIZE / 2);
+    private static final Position SNAKE_START_POSITION = new Pos(X_MAP_SIZE / 2, (Y_MAP_SIZE / 3) * 2);
 
     private final SnakeEntity snake;
     private final EatableEntity apple;
