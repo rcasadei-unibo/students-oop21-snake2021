@@ -1,14 +1,6 @@
 package main.java.com.controller;
 
-import java.awt.Point;
-
-import java.awt.Rectangle;
-import java.awt.geom.Point2D;
-
 import main.java.com.model.Model;
-import main.java.com.view.BasicWindow;
-import main.java.com.view.GameObserver;
-import main.java.com.view.GameOver;
 import main.java.com.view.GameView;
 
 public class CollisionManagerImpl implements CollisionManager {
@@ -38,11 +30,6 @@ public class CollisionManagerImpl implements CollisionManager {
         }
     }
 
-    /**
-     * 
-     * @param view
-     * @return true if the Rectangle representing the apple contains the Point2D at the center of snake's head, false otherwise.
-     */
     private boolean detectAppleCollision(final GameView view) {
         return view.getMapView().getAppleRect().contains(view.getMapView().getSnakeHeadCenter());
     }
@@ -52,13 +39,7 @@ public class CollisionManagerImpl implements CollisionManager {
     }
 
     private boolean detectBodyCollision(final GameView view) {
-        // TODO Might be better to use a stream
-        for (final Rectangle r : view.getMapView().getSnakeBody()) {
-            if (r.contains(view.getMapView().getSnakeHeadCenter())) {
-                return true;
-            }
-        }
-        return false;
+        return view.getMapView().getSnakeBody().stream().anyMatch(r -> r.contains(view.getMapView().getSnakeHeadCenter()));
     }
 
 }

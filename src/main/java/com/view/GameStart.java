@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import main.java.com.controller.GameObserver;
+
 public class GameStart implements BasicWindow {
 
     private static final String IMG_NAME = "/start.png";
@@ -33,22 +35,19 @@ public class GameStart implements BasicWindow {
         frame.setAlwaysOnTop(true);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void show() {
         frame.setVisible(true);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void setObserver(final GameObserver obs) {
         observer = obs;
     }
 
+    /** {@inheritDoc} */
     @Override
     public JFrame getFrame() {
         return frame;

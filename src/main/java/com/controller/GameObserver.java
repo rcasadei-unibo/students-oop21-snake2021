@@ -1,4 +1,4 @@
-package main.java.com.view;
+package main.java.com.controller;
 
 public interface GameObserver {
 

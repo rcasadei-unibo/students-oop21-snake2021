@@ -69,5 +69,8 @@ public interface SnakeEntity extends GameEntity {
      */
     void move();
 
+    /**
+     * Sets boolean field dead to true, stopping snakes' movement.
+     */
     void die();
 }

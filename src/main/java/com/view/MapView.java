@@ -56,6 +56,7 @@ public class MapView extends JPanel {
      * Draws the grid of the map.
      * @param g
      */
+    /*
     private void drawGrid(final Graphics g) {
         final Position start = new Pos((this.getWidth() - xMapSize * CELL_SIZE) / 2,
                                         (this.getHeight() - ymapSize * CELL_SIZE) / 2);
@@ -67,6 +68,7 @@ public class MapView extends JPanel {
             }
         }
     }
+    */
 
     /**
      * Draws the bounds of the map.
@@ -168,10 +170,13 @@ public class MapView extends JPanel {
     }
 
 
-    public /*Set<Line2D>*/ Rectangle2D getMapBounds() {
-        final Position start = new Pos((this.getWidth() - xMapSize * CELL_SIZE) / 2,
-                                         (this.getHeight() - ymapSize * CELL_SIZE) / 2);
-        return new Rectangle(start.getX(), start.getY(), xMapSize * CELL_SIZE, ymapSize * CELL_SIZE).getBounds2D();
+    public Rectangle2D getMapBounds() {
+        return new Rectangle(getStartPos().getX(), getStartPos().getY(), xMapSize * CELL_SIZE, ymapSize * CELL_SIZE).getBounds2D();
+    }
+
+    private Position getStartPos() {
+        return new Pos((this.getWidth() - xMapSize * CELL_SIZE) / 2,
+                (this.getHeight() - ymapSize * CELL_SIZE) / 2);
     }
 
 }

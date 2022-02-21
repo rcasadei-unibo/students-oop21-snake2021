@@ -8,13 +8,18 @@ import java.util.concurrent.ArrayBlockingQueue;
 import main.java.com.model.GameModel;
 
 import main.java.com.model.Model;
-import main.java.com.view.GameObserver;
 import main.java.com.view.GameView;
 import main.java.com.view.GameViewImpl;
 
+/**
+ * This class represents the controller's entry point.
+ * This class' purpose is to connect together the view and the model of the application and make them interact correctly.
+ * Here is implemented the method used to run the application, which is mainLoop().
+ *
+ */
 public class Controller implements GameObserver, InputController {
 
-    private static final long PERIOD = 80;
+    private static final long PERIOD = 90;
 
     private final Model model;
     private final GameView view;
@@ -23,9 +28,14 @@ public class Controller implements GameObserver, InputController {
     private final Queue<Command> cmdQueue;
     private boolean isPaused;
     private boolean isStarted;
-
     private boolean quit;
 
+    /**
+     * Constructor for the Controller class.
+     * Initializes the {@link Model}, the {@link GameView}, the {@link ScoreManager} and the {@link CollisionManager}
+     * and also creates command queue.
+     * Paints the the view for the first time.
+     */
     public Controller() {
         model = new GameModel();
         view = new GameViewImpl(model.getGameMap().getXMapSize(), model.getGameMap().getYMapSize());
@@ -34,51 +44,41 @@ public class Controller implements GameObserver, InputController {
         view.setObserver(this);
         view.getMapView().addKeyListener(new KeyNotifier(this));
         cmdQueue = new ArrayBlockingQueue<>(100);
-    }
-
-    public void mainLoop() {
-        long lastTime = System.currentTimeMillis();
         view.getMapView().getAppleView().setPosition(model.getApple().getPosition());
         view.getMapView().getSnakeView().setBody(model.getSnake().getBodyPosition());
         view.show();
         sm.showHiScore();
+    }
+
+    /**
+     * This method represents the game's main loop.
+     * It is called to start the application and keeps looping until the players quits the game.
+     */
+    public void mainLoop() {
         while (!quit) {
             final long current = System.currentTimeMillis();
-            final int elapsed = (int) (current - lastTime);
             if (!isPaused && isStarted) {
                 processInput();
-
                 view.getMapView().getAppleView().setPosition(model.getApple().getPosition());
                 view.getMapView().getSnakeView().setBody(model.getSnake().getBodyPosition());
-
                 cm.manageAppleCollision(view, model);
                 cm.manageWallOrBodyCollision(view, model);
-
                 model.moveSnake();
-
                 view.updateView();
             }
-
             waitForNextFrame(current);
-            lastTime = current;
         }
     }
 
-    private void waitForNextFrame(final long current) {
-        final long dt = System.currentTimeMillis() - current;
-        if (dt < PERIOD) {
-            try {
-                Thread.sleep(PERIOD - dt);
-            } catch (InterruptedException e) {
-
-            }
-        }
-    }
-
+    /**
+     * Getter for the game's view.
+     * @return the {@link GameView} view
+     */
     public GameView getView() {
         return view;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void resetGame() {
         model.resetGame();
@@ -90,6 +90,7 @@ public class Controller implements GameObserver, InputController {
         view.getMapView().requestFocusInWindow();
     }
 
+    /** {@inheritDoc} */
     @Override
     public void pauseGame() {
         isPaused = !isPaused;
@@ -99,6 +100,7 @@ public class Controller implements GameObserver, InputController {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void quit() {
         quit = true;
@@ -106,6 +108,7 @@ public class Controller implements GameObserver, InputController {
         //System.exit(0);
     }
 
+    /** {@inheritDoc} */
     public void start() {
         view.enableButtons();
         view.getMapView().setFocusable(true);
@@ -113,6 +116,7 @@ public class Controller implements GameObserver, InputController {
         isStarted = true;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void notifyCommand(final Command cmd) {
         if (!cmd.getDir().equals(model.getSnake().getDirection())) {
@@ -124,6 +128,17 @@ public class Controller implements GameObserver, InputController {
         final Command cmd = cmdQueue.poll();
         if (cmd != null) {
             cmd.execute(model);
+        }
+    }
+
+    private void waitForNextFrame(final long current) {
+        final long dt = System.currentTimeMillis() - current;
+        if (dt < PERIOD) {
+            try {
+                Thread.sleep(PERIOD - dt);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

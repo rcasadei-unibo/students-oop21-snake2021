@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import main.java.com.controller.GameObserver;
+
 public class GameViewImpl implements GameView {
 
     private static final String FRAME_NAME = "Snake Game";

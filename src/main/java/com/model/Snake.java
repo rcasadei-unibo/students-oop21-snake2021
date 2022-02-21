@@ -200,29 +200,16 @@ public final class Snake implements SnakeEntity {
     /** {@inheritDoc} */
     @Override
     public void move() {
-        // TODO JUnit test.
-        // Check if the next position would hit a wall or another body part.
-
-        /*
-        if (this.body.contains(this.nextPosition())
-                || this.nextPosition().getX() < 0 || this.nextPosition().getX() >= this.mapSizeX
-                || this.nextPosition().getY() < 0 || this.nextPosition().getY() >= this.mapSizeY) {
-            //this.dead = true;
-            return;
-        }
-        */
-
-        /** Probably it has to be done like this. Add the new element on the head and remove the one on the tail.
-         */
         if (!this.dead) {
-        this.headPosition = this.nextPosition();
-        if (this.length == this.body.size()) {   // The length field should be increased when snake eats an apple,
-            this.body.remove(this.body.size() - 1);  // so we could use it to know when not to remove the element on the tail.
-        }
+            this.headPosition = this.nextPosition();
+            if (this.length == this.body.size()) {   // The length field should be increased when snake eats an apple,
+                this.body.remove(this.body.size() - 1);  // so we could use it to know when not to remove the element on the tail.
+            }
         this.body.add(0, this.headPosition);
         }
     }
 
+    /** {@inheritDoc} */
     public void die() {
         this.dead = true;
     }
