@@ -1,34 +1,40 @@
 package main.java.com.view;
 
-import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.geom.Point2D;
 import java.util.List;
 
 import main.java.com.utility.Position;
 
-public class SnakeView {
+/**
+ * Interface that models the view for the snake game entity.
+ *
+ */
+public interface SnakeView extends DrawableGameEntity {
 
-    private final List<Rectangle> body;
-    private final int cellSize;
+    /**
+     * 
+     * @return the {@link List<Rectangle>} of the snake's body.
+     */
+    List<Rectangle> getBody();
 
-    public SnakeView(final List<Rectangle> b, final int s) {
-        body = b;
-        cellSize = s;
-    }
+    /**
+     * 
+     * @return a {@link List<Rectangle>} that graphically represents on screen the
+     *         body of the snake.
+     */
+    List<Rectangle> getBodyRects();
 
-    public List<Rectangle> getSnakeView() {
-        return body;
-    }
+    /**
+     * 
+     * @return a {@link Point2D} that represents the position on the screen of the
+     *         center of the snake's head.
+     */
+    Point2D getHeadCenter();
 
-    public Rectangle getHeadView() {
-        return body.get(0);
-    }
-
-    public void setBody(final List<Position> list) {
-        body.clear();
-        list.stream().forEach(p -> {
-            body.add(new Rectangle(new Point(p.getX(), p.getY()), new Dimension(cellSize, cellSize)));
-        });
-    }
+    /**
+     * Sets the snake's body.
+     * @param list
+     */
+    void setBody(List<Position> list);
 }

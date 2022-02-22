@@ -2,10 +2,9 @@ package main.java.com.view;
 
 import java.awt.BorderLayout;
 
+
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,7 +21,6 @@ public class GameOver implements BasicWindow {
     private static final String QUIT = "Quit";
     private static final String IMG_NAME = "/game_over.png";
     private static final Color TRANSPARENT = new Color(1.0f, 1.0f, 1.0f, 0.0f);
-    private static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
 
     private GameObserver observer;
     private final JFrame frame;
@@ -32,8 +30,7 @@ public class GameOver implements BasicWindow {
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.getContentPane().setLayout(new BorderLayout());
 
-        final ImageIcon img = new ImageIcon(getClass().getResource(IMG_NAME));
-        final JLabel lImg = new JLabel(img);
+        final JLabel lImg = new JLabel(new ImageIcon(getClass().getResource(IMG_NAME)));
         frame.getContentPane().add(lImg, BorderLayout.CENTER);
 
         final JPanel pBottom = new JPanel(new FlowLayout(FlowLayout.CENTER));

@@ -1,7 +1,7 @@
 package main.java.com.controller;
 
 import main.java.com.model.Model;
-import main.java.com.view.GameView;
+import main.java.com.view.View;
 
 public class CollisionManagerImpl implements CollisionManager {
 
@@ -12,7 +12,7 @@ public class CollisionManagerImpl implements CollisionManager {
     }
 
     @Override
-    public void manageAppleCollision(final GameView view, final Model model) {
+    public void manageAppleCollision(final View view, final Model model) {
         if (detectAppleCollision(view)) {
             model.eatApple();
             sm.updateScore();
@@ -22,7 +22,7 @@ public class CollisionManagerImpl implements CollisionManager {
     }
 
     @Override
-    public void manageWallOrBodyCollision(final GameView view, final Model model) {
+    public void manageWallOrBodyCollision(final View view, final Model model) {
         if (detectWallCollision(view) || detectBodyCollision(view)) {
             model.getSnake().die();
             view.getFrame().setEnabled(false);
@@ -30,16 +30,16 @@ public class CollisionManagerImpl implements CollisionManager {
         }
     }
 
-    private boolean detectAppleCollision(final GameView view) {
-        return view.getMapView().getAppleRect().contains(view.getMapView().getSnakeHeadCenter());
+    private boolean detectAppleCollision(final View view) {
+        return view.getMapView().getAppleView().getRect().contains(view.getMapView().getSnakeView().getHeadCenter());
     }
 
-    private boolean detectWallCollision(final GameView view) {
-        return !view.getMapView().getMapBounds().contains(view.getMapView().getSnakeHeadCenter());
+    private boolean detectWallCollision(final View view) {
+        return !view.getMapView().getMapBounds().contains(view.getMapView().getSnakeView().getHeadCenter());
     }
 
-    private boolean detectBodyCollision(final GameView view) {
-        return view.getMapView().getSnakeBody().stream().anyMatch(r -> r.contains(view.getMapView().getSnakeHeadCenter()));
+    private boolean detectBodyCollision(final View view) {
+        return view.getMapView().getSnakeView().getBodyRects().stream().anyMatch(r -> r.contains(view.getMapView().getSnakeView().getHeadCenter()));
     }
 
 }

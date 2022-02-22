@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import main.java.com.model.Model;
-import main.java.com.view.GameView;
+import main.java.com.view.View;
 
 public class ScoreManagerImpl implements ScoreManager {
 
@@ -17,11 +17,11 @@ public class ScoreManagerImpl implements ScoreManager {
     private static final String HI_SCORE = "Highscore: ";
     private static final String PATH = "highscore.txt";
 
-    private final GameView view;
+    private final View view;
     private final Model model;
     private final File file;
 
-    public ScoreManagerImpl(final GameView gv, final Model gm) {
+    public ScoreManagerImpl(final View gv, final Model gm) {
        view = gv;
        model = gm;
        file = new File(PATH);

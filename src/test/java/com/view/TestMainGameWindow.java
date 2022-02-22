@@ -1,13 +1,13 @@
 package test.java.com.view;
 
 
+import main.java.com.view.View;
 import main.java.com.view.GameView;
-import main.java.com.view.GameViewImpl;
 
 public class TestMainGameWindow {
 
     public static void main(final String[] args) {
-        final GameView gv = new GameViewImpl(21, 21);
+        final View gv = new GameView(21, 21);
         gv.show();
     }
 }

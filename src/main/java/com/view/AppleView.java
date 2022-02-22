@@ -1,33 +1,23 @@
 package main.java.com.view;
 
-import java.awt.Point;
 import java.awt.Rectangle;
 
-import main.java.com.utility.Pos;
 import main.java.com.utility.Position;
 
 /**
- * This class represents an Apple graphically as a Rectangle.
- * 
- *
+ * Interface that models the view for the apple entity.
  */
-public class AppleView {
+public interface AppleView extends DrawableGameEntity {
 
-    private final Rectangle apple;
+    /**
+     * 
+     * @return the {@link Rectangle} that graphically represents the apple.
+     */
+    Rectangle getRect();
 
-    public AppleView(final Rectangle a) {
-        apple = a;
-    }
-
-    public Rectangle getAppleView() {
-        return apple;
-    }
-
-    public Position getLocation() {
-        return new Pos((int) apple.getX(), (int) apple.getY());
-    }
-
-    public void setPosition(final Position p) {
-        apple.setLocation(new Point(p.getX(), p.getY()));
-    }
+    /**
+     * Sets the position of the apple.
+     * @param p
+     */
+    void setPosition(Position p);
 }

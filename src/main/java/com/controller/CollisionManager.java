@@ -1,11 +1,11 @@
 package main.java.com.controller;
 
 import main.java.com.model.Model;
-import main.java.com.view.GameView;
+import main.java.com.view.View;
 
 public interface CollisionManager {
 
-    void manageAppleCollision(GameView view, Model model);
+    void manageAppleCollision(View view, Model model);
 
-    void manageWallOrBodyCollision(GameView view, Model model);
+    void manageWallOrBodyCollision(View view, Model model);
 }

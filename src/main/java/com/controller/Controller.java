@@ -8,8 +8,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import main.java.com.model.GameModel;
 
 import main.java.com.model.Model;
+import main.java.com.view.View;
 import main.java.com.view.GameView;
-import main.java.com.view.GameViewImpl;
 
 /**
  * This class represents the controller's entry point.
@@ -19,10 +19,10 @@ import main.java.com.view.GameViewImpl;
  */
 public class Controller implements GameObserver, InputController {
 
-    private static final long PERIOD = 90;
+    private static final long PERIOD = 85;
 
     private final Model model;
-    private final GameView view;
+    private final View view;
     private final ScoreManager sm;
     private final CollisionManager cm;
     private final Queue<Command> cmdQueue;
@@ -32,13 +32,13 @@ public class Controller implements GameObserver, InputController {
 
     /**
      * Constructor for the Controller class.
-     * Initializes the {@link Model}, the {@link GameView}, the {@link ScoreManager} and the {@link CollisionManager}
+     * Initializes the {@link Model}, the {@link View}, the {@link ScoreManager} and the {@link CollisionManager}
      * and also creates command queue.
      * Paints the the view for the first time.
      */
     public Controller() {
         model = new GameModel();
-        view = new GameViewImpl(model.getGameMap().getXMapSize(), model.getGameMap().getYMapSize());
+        view = new GameView(model.getGameMap().getXMapSize(), model.getGameMap().getYMapSize());
         sm = new ScoreManagerImpl(view, model);
         cm = new CollisionManagerImpl(sm);
         view.setObserver(this);
@@ -47,6 +47,7 @@ public class Controller implements GameObserver, InputController {
         view.getMapView().getAppleView().setPosition(model.getApple().getPosition());
         view.getMapView().getSnakeView().setBody(model.getSnake().getBodyPosition());
         view.show();
+        view.getMapView().populateCells();
         sm.showHiScore();
     }
 
@@ -72,9 +73,9 @@ public class Controller implements GameObserver, InputController {
 
     /**
      * Getter for the game's view.
-     * @return the {@link GameView} view
+     * @return the {@link View} view
      */
-    public GameView getView() {
+    public View getView() {
         return view;
     }
 
