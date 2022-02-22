@@ -105,7 +105,6 @@ public class Controller implements GameObserver, InputController {
     public void quit() {
         quit = true;
         view.getFrame().dispatchEvent(new WindowEvent(view.getFrame(), WindowEvent.WINDOW_CLOSING));
-        //System.exit(0);
     }
 
     /** {@inheritDoc} */

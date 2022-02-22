@@ -38,17 +38,13 @@ public class ScoreManagerImpl implements ScoreManager {
        }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void updateScore() {
         view.getScoreLabel().setText(SCORE + model.getScore());
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void saveScore() {
         file.setWritable(true);
@@ -75,9 +71,7 @@ public class ScoreManagerImpl implements ScoreManager {
         return -1;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public void showHiScore() {
         view.getHiScoreLabel().setText(HI_SCORE + readScore());
     }

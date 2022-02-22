@@ -10,9 +10,11 @@ import main.java.com.utility.Position;
 public class SnakeView {
 
     private final List<Rectangle> body;
+    private final int cellSize;
 
-    public SnakeView(final List<Rectangle> b) {
+    public SnakeView(final List<Rectangle> b, final int s) {
         body = b;
+        cellSize = s;
     }
 
     public List<Rectangle> getSnakeView() {
@@ -26,7 +28,7 @@ public class SnakeView {
     public void setBody(final List<Position> list) {
         body.clear();
         list.stream().forEach(p -> {
-            body.add(new Rectangle(new Point(p.getX(), p.getY()), new Dimension(32, 32)));
+            body.add(new Rectangle(new Point(p.getX(), p.getY()), new Dimension(cellSize, cellSize)));
         });
     }
 }

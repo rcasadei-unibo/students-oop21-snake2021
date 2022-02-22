@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
@@ -28,7 +29,7 @@ public class GameViewImpl implements GameView {
     private static final String RESET = "Reset";
     private static final String QUIT = "Quit";
     private static final Font FONT = new Font("Tahoma", Font.BOLD, 21);
-    private static final Dimension WINDOW_SIZE = new Dimension(1000, 800);
+    private static final Dimension WINDOW_SIZE = new Dimension(Toolkit.getDefaultToolkit().getScreenSize());
 
     private GameObserver observer;
     private final JFrame frame;
@@ -62,7 +63,7 @@ public class GameViewImpl implements GameView {
 
         mapView = new MapView(xMapSize, yMapSize);
         mapView.setBackground(Color.BLACK);
-        mapView.setPreferredSize(WINDOW_SIZE);
+        //mapView.setPreferredSize(WINDOW_SIZE);
         mapView.setFocusable(true);
 
         final JPanel pBottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));

@@ -1,10 +1,11 @@
 package main.java.com.view;
 
 import java.awt.Color;
-
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -24,20 +25,26 @@ import main.java.com.utility.Position;
 public class MapView extends JPanel {
 
     private static final long serialVersionUID = 7273434234021291999L;
-    private static final int CELL_SIZE = 32; // Hard coded, should be changed to be responsive to the window size.
+    private static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
+    private static final double MUL = 1.5;
+    //private static final int CELL_SIZE =  // Hard coded, should be changed to be responsive to the screen size.
 
     private final int xMapSize;
     private final int ymapSize;
     private final Map<Position, Position> cells = new HashMap<>();
     private final AppleView apple;
     private final SnakeView snake;
+    private final int cellSize;
 
     public MapView(final int x, final int y) {
         xMapSize = x;
         ymapSize = y;
-        populateCells();
-        apple = new AppleView(new Rectangle(CELL_SIZE, CELL_SIZE));
-        snake = new SnakeView(new ArrayList<>());
+        // Check if screen is vertical or horizontal and set the cell size accordingly
+        cellSize = (int) (SCREEN_SIZE.getHeight() / SCREEN_SIZE.getWidth() <= 1 ? SCREEN_SIZE.getHeight() / (y * MUL)
+                                                                                : SCREEN_SIZE.getWidth() / (x * MUL));
+        //populateCells();
+        apple = new AppleView(new Rectangle(cellSize, cellSize));
+        snake = new SnakeView(new ArrayList<>(), cellSize);
     }
 
     /**
@@ -75,11 +82,11 @@ public class MapView extends JPanel {
      * @param g
      */
     private void drawBounds(final Graphics g) {
-        final Point2D topLeft = new Point((this.getWidth() - xMapSize * CELL_SIZE) / 2,
-                                            (this.getHeight() - ymapSize * CELL_SIZE) / 2);
-        final Point2D topRight = new Point((int) (topLeft.getX() + xMapSize * CELL_SIZE), (int) topLeft.getY());
-        final Point2D bottomLeft = new Point((int) topLeft.getX(), (int) (topLeft.getY() + ymapSize * CELL_SIZE));
-        final Point2D bottomRight = new Point((int) (topLeft.getX() + xMapSize * CELL_SIZE), (int) (topLeft.getY() + ymapSize * CELL_SIZE));
+        final Point2D topLeft = new Point((this.getWidth() - xMapSize * cellSize) / 2,
+                                            (this.getHeight() - ymapSize * cellSize) / 2);
+        final Point2D topRight = new Point((int) (topLeft.getX() + xMapSize * cellSize), (int) topLeft.getY());
+        final Point2D bottomLeft = new Point((int) topLeft.getX(), (int) (topLeft.getY() + ymapSize * cellSize));
+        final Point2D bottomRight = new Point((int) (topLeft.getX() + xMapSize * cellSize), (int) (topLeft.getY() + ymapSize * cellSize));
         final Set<Line2D> bounds = new HashSet<>();
         bounds.add(new Line2D.Double(topLeft, topRight));
         bounds.add(new Line2D.Double(topLeft, bottomLeft));
@@ -97,7 +104,7 @@ public class MapView extends JPanel {
      */
     private void drawApple(final Graphics g) {
         g.setColor(Color.RED);
-        g.fillRect(cells.get(apple.getLocation()).getX(), cells.get(apple.getLocation()).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
+        g.fillRect(cells.get(apple.getLocation()).getX(), cells.get(apple.getLocation()).getY(), cellSize + 1, cellSize + 1);
     }
 
     /**
@@ -111,7 +118,7 @@ public class MapView extends JPanel {
         }
         snake.getSnakeView().stream().forEach(r -> {
             final Position p = new Pos((int) r.getLocation().getX(), (int) r.getLocation().getY());
-            g.fillRect(cells.get(p).getX(), cells.get(p).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
+            g.fillRect(cells.get(p).getX(), cells.get(p).getY(), cellSize + 1, cellSize + 1);
         });
     }
 
@@ -121,7 +128,7 @@ public class MapView extends JPanel {
     private void populateCells() {
         for (int i = -1; i <= xMapSize + 1; i++) {
             for (int j = -1; j <= ymapSize + 1; j++) {
-                cells.put(new Pos(i, j), new Pos(getStartPos().getX() + i * CELL_SIZE, getStartPos().getY() + j * CELL_SIZE));
+                cells.put(new Pos(i, j), new Pos(getStartPos().getX() + i * cellSize, getStartPos().getY() + j * cellSize));
             }
         }
     }
@@ -135,7 +142,7 @@ public class MapView extends JPanel {
     }
 
     public Rectangle getAppleRect() {
-        return new Rectangle(cells.get(apple.getLocation()).getX(), cells.get(apple.getLocation()).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
+        return new Rectangle(cells.get(apple.getLocation()).getX(), cells.get(apple.getLocation()).getY(), cellSize + 1, cellSize + 1);
     }
 
     public Point2D getSnakeHeadCenter() {
@@ -145,7 +152,7 @@ public class MapView extends JPanel {
 
     public Rectangle getSnakeHead() {
         final Position p = new Pos((int) snake.getSnakeView().get(0).getX(), (int) snake.getSnakeView().get(0).getY());
-        return new Rectangle(cells.get(p).getX(), cells.get(p).getY(), CELL_SIZE + 1, CELL_SIZE + 1);
+        return new Rectangle(cells.get(p).getX(), cells.get(p).getY(), cellSize + 1, cellSize + 1);
     }
 
     /**
@@ -172,12 +179,11 @@ public class MapView extends JPanel {
 
 
     public Rectangle2D getMapBounds() {
-        return new Rectangle(getStartPos().getX(), getStartPos().getY(), xMapSize * CELL_SIZE, ymapSize * CELL_SIZE).getBounds2D();
+        return new Rectangle(getStartPos().getX(), getStartPos().getY(), xMapSize * cellSize, ymapSize * cellSize).getBounds2D();
     }
 
     private Position getStartPos() {
-        return new Pos((this.getWidth() - xMapSize * CELL_SIZE) / 2,
-                (this.getHeight() - ymapSize * CELL_SIZE) / 2);
+        return new Pos((this.getWidth() - xMapSize * cellSize) / 2, (this.getHeight() - ymapSize * cellSize) / 2);
     }
 
 }
