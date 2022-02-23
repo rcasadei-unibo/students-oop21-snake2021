@@ -1,6 +1,7 @@
 package main.java.com.view;
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -9,7 +10,6 @@ import java.awt.Toolkit;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -50,8 +50,10 @@ public class MapViewImpl extends JPanel implements MapView {
         // Check if screen is vertical or horizontal and set the cell size accordingly
         cellSize = (int) (SCREEN_SIZE.getHeight() / SCREEN_SIZE.getWidth() <= 1 ? SCREEN_SIZE.getHeight() / (y * MUL)
                                                                                 : SCREEN_SIZE.getWidth() / (x * MUL));
-        apple = new AppleViewImpl(new Rectangle(cellSize, cellSize), cells);
-        snake = new SnakeViewImpl(new ArrayList<>(), cells, cellSize);
+        apple = new AppleViewImpl(cells, cellSize);
+        snake = new SnakeViewImpl(cells, cellSize);
+        setBackground(Color.BLACK);
+        setFocusable(true);
     }
 
     /**

@@ -38,8 +38,8 @@ public class GameView implements View {
 
     private GameObserver observer;
     private final JFrame frame;
-    private final JLabel lScore, lHiScore;
-    private final JButton bPause, bReset, bQuit;
+    private JLabel lScore, lHiScore;
+    private JButton bPause, bReset, bQuit;
     private final MapViewImpl mapView;
     private final BasicWindow gameOver, gameStart;
 
@@ -56,59 +56,9 @@ public class GameView implements View {
         frame.getContentPane().setLayout(new BorderLayout());
         gameOver = new GameOver();
         gameStart = new GameStart();
-        gameStart.show();
-        final JPanel pTop = new JPanel(new FlowLayout());
-        lScore = new JLabel(SCORE);
-        lHiScore = new JLabel(HI_SCORE);
-        lScore.setForeground(Color.WHITE);
-        lHiScore.setForeground(Color.WHITE);
-        lScore.setFont(FONT);
-        lHiScore.setFont(FONT);
-        pTop.setBackground(Color.BLACK);
-        pTop.add(lScore);
-        pTop.add(lHiScore);
         mapView = new MapViewImpl(xMapSize, yMapSize);
-        mapView.setBackground(Color.BLACK);
-        mapView.setFocusable(true);
-        final JPanel pBottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        bPause = new MyButton(PAUSE);
-        bReset = new MyButton(RESET);
-        bQuit = new MyButton(QUIT);
-        pBottom.setBackground(Color.BLACK);
-        bPause.addActionListener(e -> {
-            bReset.setEnabled(false);
-            bQuit.setEnabled(false);
-            observer.pauseGame();
-        });
-        bPause.setMnemonic(KeyEvent.VK_Z); // ALT + Z to pause the game
-        bReset.addActionListener(e -> {
-            observer.pauseGame();
-            if (confirmDialog("Confirm resetting?", "Reset")) {
-                observer.resetGame();
-            } else {
-                mapView.requestFocusInWindow();
-                observer.pauseGame();
-            }
-        });
-        bReset.setMnemonic(KeyEvent.VK_X); // ALT + X to reset the game
-        bQuit.addActionListener(e -> {
-            observer.pauseGame();
-            if (confirmDialog("Confirm quitting?", "Quit")) {
-                observer.quit();
-            } else {
-                mapView.requestFocusInWindow();
-                observer.pauseGame();
-            }
-        });
-        bQuit.setMnemonic(KeyEvent.VK_C); // ALT + C to quit the game
-        bPause.setEnabled(false);
-        bReset.setEnabled(false);
-        bQuit.setEnabled(false);
-        pBottom.add(bPause);
-        pBottom.add(bReset);
-        pBottom.add(bQuit);
-        frame.getContentPane().add(pTop, BorderLayout.NORTH);
-        frame.getContentPane().add(pBottom, BorderLayout.SOUTH);
+        frame.getContentPane().add(createScorePanel(), BorderLayout.NORTH);
+        frame.getContentPane().add(createButtonsPanel(), BorderLayout.SOUTH);
         frame.getContentPane().add(mapView, BorderLayout.CENTER);
         frame.setUndecorated(true);
         frame.setLocationRelativeTo(null); // Centers the frame on the screen.
@@ -116,6 +66,7 @@ public class GameView implements View {
         mapView.setFocusable(false);
         gameStart.getFrame().setLocationRelativeTo(frame);
         gameOver.getFrame().setLocationRelativeTo(frame);
+        gameStart.show();
     }
 
     /** {@inheritDoc} */
@@ -172,5 +123,60 @@ public class GameView implements View {
 
     private boolean confirmDialog(final String question, final String name) {
         return JOptionPane.showConfirmDialog(frame, question, name, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+    }
+
+    private JPanel createScorePanel() {
+        final JPanel pTop = new JPanel(new FlowLayout());
+        lScore = new JLabel(SCORE);
+        lHiScore = new JLabel(HI_SCORE);
+        lScore.setForeground(Color.WHITE);
+        lHiScore.setForeground(Color.WHITE);
+        lScore.setFont(FONT);
+        lHiScore.setFont(FONT);
+        pTop.setBackground(Color.BLACK);
+        pTop.add(lScore);
+        pTop.add(lHiScore);
+        return pTop;
+    }
+
+    private JPanel createButtonsPanel() {
+        final JPanel pBottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        bPause = new MyButton(PAUSE);
+        bReset = new MyButton(RESET);
+        bQuit = new MyButton(QUIT);
+        bPause.addActionListener(e -> {
+            bReset.setEnabled(false);
+            bQuit.setEnabled(false);
+            observer.pauseGame();
+        });
+        bPause.setMnemonic(KeyEvent.VK_Z); // ALT + Z to pause the game
+        bReset.addActionListener(e -> {
+            observer.pauseGame();
+            if (confirmDialog("Confirm resetting?", "Reset")) {
+                observer.resetGame();
+            } else {
+                mapView.requestFocusInWindow();
+                observer.pauseGame();
+            }
+        });
+        bReset.setMnemonic(KeyEvent.VK_X); // ALT + X to reset the game
+        bQuit.addActionListener(e -> {
+            observer.pauseGame();
+            if (confirmDialog("Confirm quitting?", "Quit")) {
+                observer.quit();
+            } else {
+                mapView.requestFocusInWindow();
+                observer.pauseGame();
+            }
+        });
+        bQuit.setMnemonic(KeyEvent.VK_C); // ALT + C to quit the game
+        bPause.setEnabled(false);
+        bReset.setEnabled(false);
+        bQuit.setEnabled(false);
+        pBottom.add(bPause);
+        pBottom.add(bReset);
+        pBottom.add(bQuit);
+        pBottom.setBackground(Color.BLACK);
+        return pBottom;
     }
 }

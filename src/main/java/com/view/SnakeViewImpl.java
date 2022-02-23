@@ -24,8 +24,14 @@ public class SnakeViewImpl {
     private final int cellSize;
     private final Map<Position, Position> cells;
 
-    public SnakeViewImpl(final List<Rectangle> b, final Map<Position, Position> c, final int s) {
-        body = b;
+    /**
+     * 
+     * @param c maps the all the possible positions on the game map to graphical
+     *          coordinates on the screen
+     * @param s the size of a single cell in pixels
+     */
+    public SnakeViewImpl(final Map<Position, Position> c, final int s) {
+        body = new ArrayList<>();
         cellSize = s;
         cells = c;
     }

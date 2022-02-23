@@ -18,8 +18,14 @@ public class AppleViewImpl implements AppleView {
     private final Rectangle apple;
     private final Map<Position, Position> cells;
 
-    public AppleViewImpl(final Rectangle a, final Map<Position, Position> c) {
-        apple = a;
+    /**
+     * 
+     * @param c maps the all the possible positions on the game map to graphical
+     *          coordinates on the screen
+     * @param cellSize the size of a single cell in pixels
+     */
+    public AppleViewImpl(final Map<Position, Position> c, final int cellSize) {
+        apple = new Rectangle(cellSize, cellSize);
         cells = c;
     }
 

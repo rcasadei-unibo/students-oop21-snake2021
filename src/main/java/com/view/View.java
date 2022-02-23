@@ -1,6 +1,5 @@
 package main.java.com.view;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
@@ -25,12 +24,6 @@ public interface View extends BasicWindow {
      * @return the instance of the MapView.
      */
     MapViewImpl getMapView();
-
-    /**
-     * 
-     * @return the main JFrame of the view.
-     */
-    JFrame getFrame();
 
     /**
      * 
