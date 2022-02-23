@@ -10,7 +10,7 @@ public interface DrawableGameEntity {
 
     /**
      * Draws the game entity on the screen.
-     * @param g
+     * @param g the Graphics
      */
     void draw(Graphics g);
 }

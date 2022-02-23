@@ -3,19 +3,29 @@ package main.java.com.controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * This class implements the {@link KeyListener} interface.
+ * Based on the key pressed the correspondent {@link Command} is notified.
+ */
 public class KeyNotifier implements KeyListener {
 
     private final InputController c;
 
+    /**
+     * Constructor that sets the {@link InputController}.
+     * @param contr the input controller to be set.
+     */
     public KeyNotifier(final InputController contr) {
         c = contr;
     }
 
+    /** Not used. */
     @Override
     public void keyTyped(final KeyEvent e) {
 
     }
 
+    /** {@inheritDoc} */
     @Override
     public void keyPressed(final KeyEvent e) {
         switch (e.getKeyCode()) {
@@ -48,6 +58,7 @@ public class KeyNotifier implements KeyListener {
         }
     }
 
+    /** Not used. */
     @Override
     public void keyReleased(final KeyEvent e) {
 

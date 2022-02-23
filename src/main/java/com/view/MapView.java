@@ -23,7 +23,7 @@ public interface MapView {
     Rectangle2D getMapBounds();
 
     /**
-     * Populates the {@link Map<Position, Position>} containing all the screen coordinates for the cells.
+     * Populates the Map of (Position, Position) containing all the screen coordinates for the cells.
      * This method needs to be called after the view is rendered on screen.
      */
     void populateCells();

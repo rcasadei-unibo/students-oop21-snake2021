@@ -14,13 +14,13 @@ public interface SnakeView extends DrawableGameEntity {
 
     /**
      * 
-     * @return the {@link List<Rectangle>} of the snake's body.
+     * @return the list of rectangles of the snake's body.
      */
     List<Rectangle> getBody();
 
     /**
      * 
-     * @return a {@link List<Rectangle>} that graphically represents on screen the
+     * @return a list of rectangles that graphically represents on screen the
      *         body of the snake.
      */
     List<Rectangle> getBodyRects();
@@ -34,7 +34,7 @@ public interface SnakeView extends DrawableGameEntity {
 
     /**
      * Sets the snake's body.
-     * @param list
+     * @param list the new list of positions to be set
      */
     void setBody(List<Position> list);
 }

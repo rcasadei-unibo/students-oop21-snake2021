@@ -2,6 +2,11 @@ package main.java.com.model;
 
 import main.java.com.utility.Position;
 
+/**
+ * This class represents the apple game entity, it is characterized by a
+ * position on the game map, a points value and the ability to be eaten.
+ * Implements {@link EatableEntity} interface.
+ */
 public class Apple implements EatableEntity {
 
     private static final int INITIAL_POINTS = 50;
@@ -12,25 +17,29 @@ public class Apple implements EatableEntity {
     private int eatenCounter;
     private int pointsValue;
 
+    /**
+     * Create the apple in the given position.
+     * @param pos the position
+     */
     public Apple(final Position pos) {
         position = pos;
         eatenCounter = 0;
         pointsValue = INITIAL_POINTS;
     }
 
-    /** {@inheritDoc}*/
+    /** {@inheritDoc} */
     @Override
     public Position getPosition() {
         return this.position;
     }
 
-    /** {@inheritDoc}*/
+    /** {@inheritDoc} */
     @Override
     public void setPosition(final Position pos) {
         this.position = pos;
     }
 
-    /** {@inheritDoc}*/
+    /** {@inheritDoc} */
     @Override
     public int getTimesEaten() {
         return this.eatenCounter;
@@ -42,12 +51,13 @@ public class Apple implements EatableEntity {
         this.pointsValue = INITIAL_POINTS;
     }
 
-    /** {@inheritDoc}*/
+    /** {@inheritDoc} */
     @Override
     public void incrementEatenCounter() {
         this.eatenCounter++;
         if (this.eatenCounter % APPLES_MULT == 0) {
-            this.pointsValue += POINTS_CHANGE; // The points value for each apple eaten increments by 50 every twenty apples eaten.
+            this.pointsValue += POINTS_CHANGE; // The points value for each apple eaten increments by 50 every twenty
+                                               // apples eaten.
         }
     }
 

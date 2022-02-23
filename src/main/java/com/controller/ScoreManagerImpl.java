@@ -11,6 +11,11 @@ import java.io.Writer;
 import main.java.com.model.Model;
 import main.java.com.view.View;
 
+/**
+ * Implements the {@link ScoreManager interface}. This class' task is to update
+ * the game's score and save the highest score on a file so it could be
+ * recovered in future games.
+ */
 public class ScoreManagerImpl implements ScoreManager {
 
     private static final String SCORE = "Score: ";
@@ -21,21 +26,28 @@ public class ScoreManagerImpl implements ScoreManager {
     private final Model model;
     private final File file;
 
+    /**
+     * Constructor that sets the fields and creates the file to store the highscore,
+     * if it doesn't already exist.
+     * 
+     * @param gv the game's view
+     * @param gm the game's model
+     */
     public ScoreManagerImpl(final View gv, final Model gm) {
-       view = gv;
-       model = gm;
-       file = new File(PATH);
-       try {
-           // If the file is not already present it is created with 0 already written.
-           if (file.createNewFile()) {
-               try (BufferedWriter w = new BufferedWriter(new FileWriter(file))) {
-                   w.write("0");
-                   file.setWritable(false);
-               }
-           }
-       } catch (IOException e) {
-           e.printStackTrace();
-       }
+        view = gv;
+        model = gm;
+        file = new File(PATH);
+        try {
+            // If the file is not already present it is created with 0 already written.
+            if (file.createNewFile()) {
+                try (BufferedWriter w = new BufferedWriter(new FileWriter(file))) {
+                    w.write("0");
+                    file.setWritable(false);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /** {@inheritDoc} */
@@ -58,8 +70,14 @@ public class ScoreManagerImpl implements ScoreManager {
         file.setWritable(false);
     }
 
+    /** {@inheritDoc} */
+    public void showHiScore() {
+        view.getHiScoreLabel().setText(HI_SCORE + readScore());
+    }
+
     /**
      * Reads the file containing the highscore value.
+     * 
      * @return the highscore as an int.
      */
     private int readScore() {
@@ -69,11 +87,6 @@ public class ScoreManagerImpl implements ScoreManager {
             e.printStackTrace();
         }
         return -1;
-    }
-
-    /** {@inheritDoc} */
-    public void showHiScore() {
-        view.getHiScoreLabel().setText(HI_SCORE + readScore());
     }
 
 }

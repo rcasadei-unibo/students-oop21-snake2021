@@ -17,7 +17,7 @@ public interface BasicWindow {
 
     /**
      * Sets the {@link GameObserver} for this window.
-     * @param obs
+     * @param obs the observer
      */
     void setObserver(GameObserver obs);
 

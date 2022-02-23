@@ -1,5 +1,9 @@
 package main.java.com.controller;
 
+/**
+ * Interface that models an observer for game events.
+ *
+ */
 public interface GameObserver {
 
     /**

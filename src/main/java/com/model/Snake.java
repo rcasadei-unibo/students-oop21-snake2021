@@ -7,33 +7,32 @@ import main.java.com.utility.Direction;
 import main.java.com.utility.Pos;
 import main.java.com.utility.Position;
 
+/**
+ * This class represents the snake game entity, it is characterized by a list of
+ * positions representing the snake's body, a moving direction, a position for
+ * its head and a length. To instantiate this class it used a SnakeBuilder that
+ * is nested inside of it. Implements the {@link SnakeEntity} interface.
+ */
 public final class Snake implements SnakeEntity {
 
-    /** The direction in which the snake is moving. */
     private Direction direction;
-    /** The current position of the snake's head. */
     private Position headPosition;
-    /** A set representing all of the snake's body's positions. */
     private List<Position> body;
-    /** The length of the snake. */
     private int length;
-    /** The size of the map on the x-coordinate. */
     private final int mapSizeX;
-    /** The size of the map on the y-coordinate. */
     private final int mapSizeY;
-
     private boolean dead;
 
     /**
+     * Private constructor used by the builder.
      * 
-     * @param dir the direction.
+     * @param dir     the direction.
      * @param headPos the head's position.
      * @param bodyPos the body's position.
-     * @param x the map's size on the x-coordinate.
-     * @param y the map's size on the y-coordinate.
+     * @param x       the map's size on the x-coordinate.
+     * @param y       the map's size on the y-coordinate.
      */
-    private Snake(final Direction dir, final Position headPos, final List<Position> bodyPos,
-                    final int x, final int y) {
+    private Snake(final Direction dir, final Position headPos, final List<Position> bodyPos, final int x, final int y) {
         direction = dir;
         headPosition = headPos;
         body = bodyPos;
@@ -44,7 +43,6 @@ public final class Snake implements SnakeEntity {
 
     /**
      * Nested builder class used to create a single instance of Snake.
-     *
      */
     public static final class SnakeBuilder {
         private static final int MINIMUM_SIZE = 5;
@@ -85,6 +83,12 @@ public final class Snake implements SnakeEntity {
             return this;
         }
 
+        /**
+         * 
+         * @param x the width of the game map
+         * @param y the height of the game map
+         * @return this builder
+         */
         public SnakeBuilder mapSize(final int x, final int y) {
             if (x < MINIMUM_SIZE || y < MINIMUM_SIZE) { // The game map cannot be smaller than 5x5.
                 throw new IllegalArgumentException();
@@ -96,18 +100,20 @@ public final class Snake implements SnakeEntity {
 
         /**
          * 
-         * @return a new instance of Snake with all the parameters correctly initialized.
+         * @return a new instance of Snake with all the parameters correctly
+         *         initialized.
          */
         public Snake build() {
             if (this.built) {
                 throw new IllegalStateException();
             }
-            if (this.direction.isEmpty() || this.headPosition.isEmpty() || this.body.isEmpty()
-                    || this.x.isEmpty() || this.y.isEmpty()) {
+            if (this.direction.isEmpty() || this.headPosition.isEmpty() || this.body.isEmpty() || this.x.isEmpty()
+                    || this.y.isEmpty()) {
                 throw new IllegalStateException();
             }
             this.built = true;
-            return new Snake(this.direction.get(), this.headPosition.get(), this.body.get(), this.x.get(), this.y.get());
+            return new Snake(this.direction.get(), this.headPosition.get(), this.body.get(), this.x.get(),
+                    this.y.get());
         }
     }
 
@@ -119,8 +125,7 @@ public final class Snake implements SnakeEntity {
 
     /** {@inheritDoc} */
     public void setPosition(final Position p) {
-        if (p.getX() < 0 || p.getX() > this.mapSizeX
-                || p.getY() < 0 || p.getY() > this.mapSizeY) {
+        if (p.getX() < 0 || p.getX() > this.mapSizeX || p.getY() < 0 || p.getY() > this.mapSizeY) {
             throw new IllegalArgumentException();
         }
         this.headPosition = p;
@@ -135,14 +140,13 @@ public final class Snake implements SnakeEntity {
     /** {@inheritDoc} */
     @Override
     public void setDirection(final Direction dir) {
-        if (!Direction.isOppositeDirection(this.direction, dir)) { // Change direction only if the new one is not opposite to the old one.
+        if (!Direction.isOppositeDirection(this.direction, dir)) { // Change direction only if the new one is not
+                                                                   // opposite to the old one.
             this.direction = dir;
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public void resetDirection() {
         this.direction = Direction.UP;
         this.dead = false;
@@ -202,10 +206,11 @@ public final class Snake implements SnakeEntity {
     public void move() {
         if (!this.dead) {
             this.headPosition = this.nextPosition();
-            if (this.length == this.body.size()) {   // The length field should be increased when snake eats an apple,
-                this.body.remove(this.body.size() - 1);  // so we could use it to know when not to remove the element on the tail.
+            if (this.length == this.body.size()) { // The length field should be increased when snake eats an apple,
+                this.body.remove(this.body.size() - 1); // so we could use it to know when not to remove the element on
+                                                        // the tail.
             }
-        this.body.add(0, this.headPosition);
+            this.body.add(0, this.headPosition);
         }
     }
 

@@ -17,7 +17,8 @@ public interface AppleView extends DrawableGameEntity {
 
     /**
      * Sets the position of the apple.
-     * @param p
+     * 
+     * @param p the position
      */
     void setPosition(Position p);
 }

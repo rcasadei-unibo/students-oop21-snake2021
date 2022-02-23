@@ -2,12 +2,12 @@ package main.java.com.model;
 
 import java.util.List;
 
-
 import main.java.com.utility.Direction;
 import main.java.com.utility.Position;
 
 /**
- * The snake entity, which is able to move around the map and eat the eatable entities.
+ * The snake entity, which is able to move around the map and eat the eatable
+ * entities.
  *
  */
 public interface SnakeEntity extends GameEntity {
@@ -20,13 +20,15 @@ public interface SnakeEntity extends GameEntity {
 
     /**
      * Set the snake's head's position.
+     * 
      * @param p the new position
      */
     void setPosition(Position p);
 
     /**
      * Set the new moving direction.
-     * @param dir
+     * 
+     * @param dir the new direction
      */
     void setDirection(Direction dir);
 
@@ -36,7 +38,9 @@ public interface SnakeEntity extends GameEntity {
     void resetDirection();
 
     /**
-     * Computes the next position in which the snake would move (considering only the snake's head).
+     * Computes the next position in which the snake would move (considering only
+     * the snake's head).
+     * 
      * @return the next position.
      */
     Position nextPosition();
@@ -49,7 +53,8 @@ public interface SnakeEntity extends GameEntity {
 
     /**
      * Sets the position of the snake's body.
-     * @param body
+     * 
+     * @param body as a list of positions
      */
     void setBodyPosition(List<Position> body);
 
@@ -60,7 +65,8 @@ public interface SnakeEntity extends GameEntity {
 
     /**
      * Sets the length of the snake.
-     * @param l
+     * 
+     * @param l the length
      */
     void setLength(int l);
 

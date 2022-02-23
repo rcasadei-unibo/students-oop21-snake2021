@@ -1,18 +1,20 @@
 package main.java.com.utility;
 
+/**
+ * Class that implements the Position interface.
+ *
+ */
 public class Pos implements Position {
 
-    /**
-     * Value of the x-coordinate.
-     */
     private final int x;
-    /**
-     * Value of the y-coordinate.
-     */
     private final int y;
 
+    /**
+     * 
+     * @param x the x-coordinate
+     * @param y the y-coordinate
+     */
     public Pos(final int x, final int y) {
-        super();
         this.x = x;
         this.y = y;
     }

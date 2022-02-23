@@ -1,23 +1,24 @@
 package main.java.com.model;
 
-
 import java.util.HashSet;
 import java.util.Set;
 
 import main.java.com.utility.Pos;
 import main.java.com.utility.Position;
 
+/**
+ * This class represents the game map's model. Implements the {@link GameMap}
+ * interface.
+ */
 public class GameMapImpl implements GameMap {
 
-    /** A set representing all possible positions on the map. */
     private final Set<Position> map;
-    /** The map's size on the x-coordinate. */
     private final int xMapSize;
-    /** The map's size on the x-coordinate. */
     private final int yMapSize;
 
     /**
      * Public constructor for the game map.
+     * 
      * @param m the set with all the possible positions on the map.
      * @param x map's size on the x-coordinate.
      * @param y map's size on the y-coordinate.

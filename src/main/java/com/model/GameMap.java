@@ -20,7 +20,7 @@ public interface GameMap {
    /**
     * 
     * @return a set of all the cells that are not currently occupied by one of the game's entities.
-    * @param snake
+    * @param snake the snake game entity
     */
    Set<Position> getFreeCells(SnakeEntity snake);
 

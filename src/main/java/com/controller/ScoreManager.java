@@ -1,5 +1,8 @@
 package main.java.com.controller;
 
+/**
+ * Interface that models a manager for the game's score.
+ */
 public interface ScoreManager {
 
     /**
@@ -8,7 +11,8 @@ public interface ScoreManager {
     void updateScore();
 
     /**
-     * Saves and stores the final score on a file.
+     * Saves and stores the final score on a file. Sets the file as non writable so
+     * it can not be modified by the user.
      */
     void saveScore();
 

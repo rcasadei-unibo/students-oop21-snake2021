@@ -12,9 +12,10 @@ import main.java.com.view.View;
 import main.java.com.view.GameView;
 
 /**
- * This class represents the controller's entry point.
- * This class' purpose is to connect together the view and the model of the application and make them interact correctly.
- * Here is implemented the method used to run the application, which is mainLoop().
+ * This class represents the controller's entry point. This class' purpose is to
+ * connect together the view and the model of the application and make them
+ * interact correctly. Here is implemented the method used to run the
+ * application, which is mainLoop().
  *
  */
 public class Controller implements GameObserver, InputController {
@@ -31,10 +32,9 @@ public class Controller implements GameObserver, InputController {
     private boolean quit;
 
     /**
-     * Constructor for the Controller class.
-     * Initializes the {@link Model}, the {@link View}, the {@link ScoreManager} and the {@link CollisionManager}
-     * and also creates command queue.
-     * Paints the the view for the first time.
+     * Constructor for the Controller class. Initializes the {@link Model}, the
+     * {@link View}, the {@link ScoreManager} and the {@link CollisionManager} and
+     * also creates command queue. Paints the the view for the first time.
      */
     public Controller() {
         model = new GameModel();
@@ -52,8 +52,8 @@ public class Controller implements GameObserver, InputController {
     }
 
     /**
-     * This method represents the game's main loop.
-     * It is called to start the application and keeps looping until the players quits the game.
+     * This method represents the game's main loop. It is called to start the
+     * application and keeps looping until the players quits the game.
      */
     public void mainLoop() {
         while (!quit) {
@@ -73,7 +73,8 @@ public class Controller implements GameObserver, InputController {
 
     /**
      * Getter for the game's view.
-     * @return the {@link View} view
+     * 
+     * @return the view
      */
     public View getView() {
         return view;

@@ -1,4 +1,4 @@
-package main.java.com.model;
+ package main.java.com.model;
 
 import main.java.com.utility.Position;
 
@@ -10,7 +10,7 @@ public interface EatableEntity extends GameEntity {
 
     /**
      * Sets the position of the entity.
-     * @param pos
+     * @param pos the position to be set
      */
     void setPosition(Position pos);
 

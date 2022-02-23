@@ -87,36 +87,36 @@ public class GameModelTest {
         assertEquals(0, model.getScore());
     }
 
-    @Test
-    @DisplayName("Test for the hitWallOrBody() method.")
-    public void testHit() {
-        final Model model = new GameModel();
-        // Test hit against wall.
-        assertFalse(model.hitWallorBody());
-        model.moveSnake(); // (10,9)
-        assertFalse(model.hitWallorBody());
-        model.moveSnake(); // (10,8)
-        assertFalse(model.hitWallorBody());
-        model.moveSnake(); // (10,7)
-        model.moveSnake(); // (10,6)
-        model.moveSnake(); // (10,5)
-        model.moveSnake(); // (10,4)
-        model.moveSnake(); // (10,3)
-        model.moveSnake(); // (10,2)
-        assertFalse(model.hitWallorBody());
-        model.moveSnake(); // (10,1) the next one would be a hit
-        assertTrue(model.hitWallorBody());
-        // Test hit against body.
-        model.resetGame();
-        model.moveSnake();
-        assertFalse(model.hitWallorBody());
-        model.getSnake().setDirection(Direction.RIGHT);
-        model.moveSnake();
-        assertFalse(model.hitWallorBody());
-        model.getSnake().setDirection(Direction.DOWN);
-        model.moveSnake();
-        assertFalse(model.hitWallorBody());
-        model.getSnake().setDirection(Direction.LEFT);
-        assertTrue(model.hitWallorBody());
-    }
+//    @Test
+//    @DisplayName("Test for the hitWallOrBody() method.")
+//    public void testHit() {
+//        final Model model = new GameModel();
+//        // Test hit against wall.
+//        assertFalse(model.hitWallorBody());
+//        model.moveSnake(); // (10,9)
+//        assertFalse(model.hitWallorBody());
+//        model.moveSnake(); // (10,8)
+//        assertFalse(model.hitWallorBody());
+//        model.moveSnake(); // (10,7)
+//        model.moveSnake(); // (10,6)
+//        model.moveSnake(); // (10,5)
+//        model.moveSnake(); // (10,4)
+//        model.moveSnake(); // (10,3)
+//        model.moveSnake(); // (10,2)
+//        assertFalse(model.hitWallorBody());
+//        model.moveSnake(); // (10,1) the next one would be a hit
+//        assertTrue(model.hitWallorBody());
+//        // Test hit against body.
+//        model.resetGame();
+//        model.moveSnake();
+//        assertFalse(model.hitWallorBody());
+//        model.getSnake().setDirection(Direction.RIGHT);
+//        model.moveSnake();
+//        assertFalse(model.hitWallorBody());
+//        model.getSnake().setDirection(Direction.DOWN);
+//        model.moveSnake();
+//        assertFalse(model.hitWallorBody());
+//        model.getSnake().setDirection(Direction.LEFT);
+//        assertTrue(model.hitWallorBody());
+//    }
 }

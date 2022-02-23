@@ -1,5 +1,10 @@
 package main.java.com.model;
 
+/**
+ * Interface that models the game's model entry point and main model component.
+ * These methods are used by the {@link Controller} to update the view and the
+ * state of the game entities.
+ */
 public interface Model {
 
     /**
@@ -27,28 +32,16 @@ public interface Model {
     int getScore();
 
     /**
-     * Increases the score by the given value.
-     * @param value
-     */
-    void incScore(int value);
-
-    /**
      * Moves the snake by one step.
      */
     void moveSnake();
 
     /**
-     * To be called when snake's head is on the same position as an apple.
-     * Increases the score, increases snake's length by one unit, updates the apple's position
+     * To be called when snake's head is on the same position as an apple. Increases
+     * the score, increases snake's length by one unit, updates the apple's position
      * to a new random position.
      */
     void eatApple();
-
-    /**
-     * 
-     * @return true if snake's head hits a wall or another part of its body, false otherwise.
-     */
-    boolean hitWallorBody();
 
     /**
      * Reset the game to its original state.
