@@ -31,8 +31,11 @@ public class GameModel implements Model {
      * Constructor that initializes all the model's entities.
      */
     public GameModel() {
-        snake = new Snake.SnakeBuilder().direction(START_DIR).headPosition(SNAKE_START_POSITION).body(getInitialSnake())
-                .mapSize(X_MAP_SIZE, Y_MAP_SIZE).build();
+        snake = new Snake.SnakeBuilder().direction(START_DIR)
+                                        .headPosition(SNAKE_START_POSITION)
+                                        .body(getInitialSnake())
+                                        .mapSize(X_MAP_SIZE, Y_MAP_SIZE)
+                                        .build();
         final Set<Position> s = new HashSet<>();
         for (int i = 0; i <= X_MAP_SIZE; i++) {
             for (int j = 0; j <= Y_MAP_SIZE; j++) {
@@ -100,7 +103,7 @@ public class GameModel implements Model {
         int y = rand.nextInt(gameMap.getYMapSize());
         // Randomize position until you get one that does not overlap with snake or
         // walls.
-        while (snake.getBodyPosition().contains(new Pos(x, y)) || gameMap.getWalls().contains(new Pos(x, y))) {
+        while (snake.getBodyPosition().contains(new Pos(x, y))) {
             x = rand.nextInt(gameMap.getXMapSize());
             y = rand.nextInt(gameMap.getYMapSize());
         }

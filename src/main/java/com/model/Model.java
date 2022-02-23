@@ -2,7 +2,7 @@ package main.java.com.model;
 
 /**
  * Interface that models the game's model entry point and main model component.
- * These methods are used by the {@link Controller} to update the view and the
+ * These methods are used by the controller to update the view and the
  * state of the game entities.
  */
 public interface Model {

@@ -3,10 +3,13 @@ package main.java.com;
 import main.java.com.controller.Controller;
 
 /**
- * This is the game's entry point.
+ * This is the class used to launch the game.
  *
  */
-public class SnakeGame {
+public final class SnakeGame {
+
+    private SnakeGame() {
+    }
 
     /**
      * The main method that starts the game.

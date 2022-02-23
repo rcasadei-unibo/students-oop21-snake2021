@@ -26,12 +26,6 @@ public interface GameMap {
 
    /**
     * 
-    * @return a set containing the positions of the walls in the map.
-    */
-   Set<Position> getWalls();
-
-   /**
-    * 
     * @return the size of the map on the x-coordinate.
     */
    int getXMapSize();

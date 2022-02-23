@@ -1,10 +1,10 @@
 package test.java.com.model;
 
 import static org.junit.Assert.assertFalse;
+
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -18,9 +18,9 @@ import main.java.com.utility.Position;
 public class GameModelTest {
 
     private static final int BODY_LENGTH = 5;
-    private static final Position START_POS = new Pos(10, 10);
     private static final int X_MAP_SIZE = 21;
     private static final int Y_MAP_SIZE = 21;
+    private static final Position START_POS = new Pos(X_MAP_SIZE / 2, (Y_MAP_SIZE / 3) * 2);
     private static final int POINTS = 50;
 
     @Test
@@ -39,16 +39,8 @@ public class GameModelTest {
                 assertTrue(model.getGameMap().getAllCells().contains(new Pos(i, j)));
             }
         }
-        // Verify that the walls are correct.
-        assertTrue(model.getGameMap().getWalls().contains(new Pos(0, 0)));
-        assertTrue(model.getGameMap().getWalls().contains(new Pos(0, 1)));
-        assertTrue(model.getGameMap().getWalls().contains(new Pos(1, 0)));
-        assertTrue(model.getGameMap().getWalls().contains(new Pos(X_MAP_SIZE, 0)));
-        assertTrue(model.getGameMap().getWalls().contains(new Pos(0, Y_MAP_SIZE)));
-        assertTrue(model.getGameMap().getWalls().contains(new Pos(X_MAP_SIZE, Y_MAP_SIZE)));
         // Apple
         assertTrue(model.getGameMap().getFreeCells(model.getSnake()).contains(model.getApple().getPosition()));
-        assertFalse(model.getGameMap().getWalls().contains(model.getApple().getPosition()));
         assertEquals(POINTS, model.getApple().getPointsValue());
         assertEquals(0, model.getApple().getTimesEaten());
         // Model
@@ -59,7 +51,6 @@ public class GameModelTest {
     @DisplayName("Test for the eatApple() method.")
     public void testEatApple() {
         final Model model = new GameModel();
-        assertThrows(IllegalStateException.class, () -> model.eatApple());
         final Position a = model.getApple().getPosition();
         model.getSnake().setPosition(model.getApple().getPosition());
         model.eatApple();
@@ -86,37 +77,4 @@ public class GameModelTest {
         assertEquals(0, model.getApple().getTimesEaten());
         assertEquals(0, model.getScore());
     }
-
-//    @Test
-//    @DisplayName("Test for the hitWallOrBody() method.")
-//    public void testHit() {
-//        final Model model = new GameModel();
-//        // Test hit against wall.
-//        assertFalse(model.hitWallorBody());
-//        model.moveSnake(); // (10,9)
-//        assertFalse(model.hitWallorBody());
-//        model.moveSnake(); // (10,8)
-//        assertFalse(model.hitWallorBody());
-//        model.moveSnake(); // (10,7)
-//        model.moveSnake(); // (10,6)
-//        model.moveSnake(); // (10,5)
-//        model.moveSnake(); // (10,4)
-//        model.moveSnake(); // (10,3)
-//        model.moveSnake(); // (10,2)
-//        assertFalse(model.hitWallorBody());
-//        model.moveSnake(); // (10,1) the next one would be a hit
-//        assertTrue(model.hitWallorBody());
-//        // Test hit against body.
-//        model.resetGame();
-//        model.moveSnake();
-//        assertFalse(model.hitWallorBody());
-//        model.getSnake().setDirection(Direction.RIGHT);
-//        model.moveSnake();
-//        assertFalse(model.hitWallorBody());
-//        model.getSnake().setDirection(Direction.DOWN);
-//        model.moveSnake();
-//        assertFalse(model.hitWallorBody());
-//        model.getSnake().setDirection(Direction.LEFT);
-//        assertTrue(model.hitWallorBody());
-//    }
 }

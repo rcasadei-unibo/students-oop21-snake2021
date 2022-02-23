@@ -1,9 +1,9 @@
 package main.java.com.model;
 
 import java.util.HashSet;
+
 import java.util.Set;
 
-import main.java.com.utility.Pos;
 import main.java.com.utility.Position;
 
 /**
@@ -44,20 +44,6 @@ public class GameMapImpl implements GameMap {
         } else {
             throw new IllegalStateException();
         }
-    }
-
-    /** {@inheritDoc} */
-    public Set<Position> getWalls() {
-        final Set<Position> walls = new HashSet<>();
-        for (int i = 0; i <= xMapSize; i++) {
-            walls.add(new Pos(i, yMapSize));
-            walls.add(new Pos(i, 0));
-        }
-        for (int j = 0; j <= yMapSize; j++) {
-            walls.add(new Pos(xMapSize, j));
-            walls.add(new Pos(0, j));
-        }
-        return walls;
     }
 
     /** {@inheritDoc} */
