@@ -19,13 +19,6 @@ public interface SnakeEntity extends GameEntity {
     Direction getDirection();
 
     /**
-     * Set the snake's head's position.
-     * 
-     * @param p the new position
-     */
-    void setPosition(Position p);
-
-    /**
      * Set the new moving direction.
      * 
      * @param dir the new direction

@@ -1,18 +1,10 @@
  package main.java.com.model;
 
-import main.java.com.utility.Position;
-
 /**
  * A game entity that can be eaten by the snake (e.g. the apple)
  *
  */
 public interface EatableEntity extends GameEntity {
-
-    /**
-     * Sets the position of the entity.
-     * @param pos the position to be set
-     */
-    void setPosition(Position pos);
 
     /**
      * 

@@ -71,31 +71,13 @@ public class MapViewImpl extends JPanel implements MapView {
         snake.draw(g);
     }
 
-    /**
-     * Draws the grid of the map.
-     * @param g
-     */
-    /*
-    private void drawGrid(final Graphics g) {
-        final Position start = new Pos((this.getWidth() - xMapSize * cellSize) / 2,
-                                        (this.getHeight() - ymapSize * cellSize) / 2);
-        g.setColor(Color.GREEN);
-        for (int i = 0; i <= xMapSize; i++) {
-            g.drawLine(start.getX() + i * cellSize, start.getY() + 0, start.getX() + i * cellSize, start.getY() + ymapSize * cellSize);
-            if (i <= xMapSize) {
-                g.drawLine(start.getX() + 0, start.getY() + i * cellSize, start.getX() + xMapSize * cellSize, start.getY() + i * cellSize);
-            }
-        }
-    }
-    */
-
     /** {@inheritDoc} */
-    public AppleViewImpl getAppleView() {
+    public AppleView getAppleView() {
         return apple;
     }
 
     /** {@inheritDoc} */
-    public SnakeViewImpl getSnakeView() {
+    public SnakeView getSnakeView() {
         return snake;
     }
 

@@ -2,8 +2,6 @@ package main.java.com.view;
 
 import javax.swing.JFrame;
 
-import main.java.com.controller.GameObserver;
-
 /**
  * Interface that models a basic window for the application.
  *

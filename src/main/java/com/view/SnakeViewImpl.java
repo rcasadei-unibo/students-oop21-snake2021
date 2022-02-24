@@ -18,7 +18,7 @@ import main.java.com.utility.Position;
  * a list of Rectangles.
  *
  */
-public class SnakeViewImpl {
+public class SnakeViewImpl implements SnakeView {
 
     private final List<Rectangle> body;
     private final int cellSize;
@@ -43,12 +43,6 @@ public class SnakeViewImpl {
 
     /** {@inheritDoc} */
     public List<Rectangle> getBodyRects() {
-        //TODO improve code quality.
-//        return body.stream()
-//                .map(r -> new Rectangle(cells.get(new Pos((int) r.getLocation().getX(), (int) r.getLocation().getY())).getX(),
-//                                        cells.get(new Pos((int) r.getLocation().getX(), (int) r.getLocation().getY())).getY(),
-//                                        cellSize + 1, cellSize + 1))
-//                .collect(Collectors.toList());
         final List<Rectangle> b = new ArrayList<>();
         final List<Rectangle> bodyView = new ArrayList<>(body);
         bodyView.remove(0);

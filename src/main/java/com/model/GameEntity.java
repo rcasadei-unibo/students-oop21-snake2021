@@ -13,4 +13,10 @@ public interface GameEntity {
      * @return the entity's position.
      */
     Position getPosition();
+
+    /**
+     * Sets the position of the entity.
+     * @param pos the position to be set
+     */
+    void setPosition(Position pos);
 }

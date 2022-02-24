@@ -18,8 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import main.java.com.controller.GameObserver;
-
 /**
  * This class represents the view's entry point.
  * Here are created and initialized the main frame for the game and all its components.

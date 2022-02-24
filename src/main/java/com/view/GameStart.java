@@ -8,8 +8,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import main.java.com.controller.GameObserver;
-
 /**
  * This class implements the {@link JFrame} shown at the start of the game that
  * consists only of a {@link JButton} that runs the game.

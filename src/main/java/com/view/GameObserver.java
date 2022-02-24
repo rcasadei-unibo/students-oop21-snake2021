@@ -1,4 +1,4 @@
-package main.java.com.controller;
+package main.java.com.view;
 
 /**
  * Interface that models an observer for game events.

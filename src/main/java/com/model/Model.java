@@ -32,11 +32,6 @@ public interface Model {
     int getScore();
 
     /**
-     * Moves the snake by one step.
-     */
-    void moveSnake();
-
-    /**
      * To be called when snake's head is on the same position as an apple. Increases
      * the score, increases snake's length by one unit, updates the apple's position
      * to a new random position.

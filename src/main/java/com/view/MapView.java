@@ -10,12 +10,12 @@ public interface MapView {
     /**
      * @return the instance of the {@link AppleView}.
      */
-    AppleViewImpl getAppleView();
+    AppleView getAppleView();
 
     /**
      * @return the instance of the {@link SnakeView}
      */
-    SnakeViewImpl getSnakeView();
+    SnakeView getSnakeView();
 
     /**
      * @return return the bounding {@link Rectangle2D} of the game's map.

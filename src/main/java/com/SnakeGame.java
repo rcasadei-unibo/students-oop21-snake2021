@@ -1,6 +1,6 @@
 package main.java.com;
 
-import main.java.com.controller.Controller;
+import main.java.com.controller.GameController;
 
 /**
  * This is the class used to launch the game.
@@ -16,6 +16,6 @@ public final class SnakeGame {
      * @param args no expected arguments.
      */
     public static void main(final String[] args) {
-        new Controller().mainLoop();
+        new GameController().mainLoop();
     }
 }

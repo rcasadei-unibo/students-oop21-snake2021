@@ -11,8 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import main.java.com.controller.GameObserver;
-
 /**
  * This class implements the {@link JFrame} to be shown when the game is over.
  *

@@ -69,12 +69,6 @@ public class GameModel implements Model {
 
     /** {@inheritDoc} */
     @Override
-    public void moveSnake() {
-        snake.move();
-    }
-
-    /** {@inheritDoc} */
-    @Override
     public void eatApple() {
         incScore(apple.getPointsValue());
         snake.increaseLength();

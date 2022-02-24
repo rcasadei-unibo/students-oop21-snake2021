@@ -63,11 +63,11 @@ public class GameModelTest {
     @DisplayName("Test resetGame() method")
     public void testReset() {
         final Model model = new GameModel();
-        model.moveSnake();
-        model.moveSnake();
+        model.getSnake().move();
+        model.getSnake().move();
         model.getSnake().setDirection(Direction.RIGHT);
-        model.moveSnake();
-        model.moveSnake();
+        model.getSnake().move();
+        model.getSnake().move();
         model.getApple().setPosition(model.getSnake().getPosition());
         model.eatApple();
         final Position a = model.getApple().getPosition();
